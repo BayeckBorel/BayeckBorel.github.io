@@ -360,12 +360,12 @@
         ctx.lineWidth = 1.4;
         for (let s = -h.len / 2; s <= h.len / 2; s += h.wl / 8) {
           const q = Math.sin(s * k + ph), z = Math.cos(s * k + ph);
-          ctx.strokeStyle = c(.1 + .3 * Math.abs(z)); ctx.beginPath();
+          ctx.strokeStyle = c((.1 + .3 * Math.abs(z)) * (o.hk || 1)); ctx.beginPath();
           ctx.moveTo(h.x + dx * s + nx * h.A * q, h.y + dy * s + ny * h.A * q); ctx.lineTo(h.x + dx * s - nx * h.A * q, h.y + dy * s - ny * h.A * q); ctx.stroke();
         }
         ctx.lineWidth = 1.8;
         for (const sh of [0, Math.PI]) {
-          ctx.strokeStyle = c(.55); ctx.beginPath();
+          ctx.strokeStyle = c(.55 * (o.hk || 1)); ctx.beginPath();
           for (let s = -h.len / 2; s <= h.len / 2; s += 5) { const q = Math.sin(s * k + ph + sh), x = h.x + dx * s + nx * h.A * q, y = h.y + dy * s + ny * h.A * q; if (s > -h.len / 2) ctx.lineTo(x, y); else ctx.moveTo(x, y); }
           ctx.stroke();
         }
@@ -412,8 +412,8 @@
     else if ("ResizeObserver" in window) new ResizeObserver(restart).observe(host); else restart();
     document.addEventListener("visibilitychange", () => { const v = !document.hidden; if (v && !on) { on = true; cancelAnimationFrame(raf); frame(); } else on = v; });
   }
-  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "70,82,104", k: .85, cells: false, cellDen: 52000, maxCells: 14, cellMax: 40, nodeDen: 30000, reach: 120, helices: 3, chroms: 3, seqs: 3 });
-  motif($("#bg"), window, { k: .34, cellDen: 95000, maxCells: 14, cellMax: 48, nodeDen: 60000, reach: 150, helices: 3, chroms: 6, seqs: 3 });
+  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "122,132,150", k: .8, hk: 1.5, cells: false, cellDen: 52000, maxCells: 14, cellMax: 40, nodeDen: 30000, reach: 120, helices: 3, chroms: 3, seqs: 3 });
+  motif($("#bg"), window, { k: .55, hk: 1.5, cellDen: 95000, maxCells: 14, cellMax: 48, nodeDen: 60000, reach: 150, helices: 3, chroms: 6, seqs: 3 });
 
   /* Photo : se souleve et s'incline vers la souris au survol. */
   (function () {

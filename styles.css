@@ -401,3 +401,6 @@ main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
 /* Motifs du fond : gris ardoise, plus sombres que le texte */
 :root{--motif:72,84,106}
 :root[data-theme="light"]{--motif:72,84,106}
+
+:root{--motif:122,132,150}
+:root[data-theme="light"]{--motif:122,132,150}
