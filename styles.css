@@ -415,3 +415,24 @@ main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
 .tt-ico{display:inline-flex;color:var(--accent)}
 .tt-ico svg{width:16px;height:16px;display:block}
 @media (max-width:720px){.tt-txt{display:none}.theme-toggle{padding:9px;margin-right:10px}}
+
+/* ===== Troisieme fond : Ambre (jaune sur sombre) ===== */
+:root[data-theme="amber"]{
+  --bg:#13110b; --surface:#1d1910; --fg:#f6efdf; --muted:#c4b896; --line:#3a3221;
+  --accent:#f2b33d; --accent2:#e8893a; --accent-soft:#2c2513; --on-accent:#1a1405; --mark:#f2b33d; --motif:150,136,104;
+  --c-dd:#f2b33d; --c-lab:#e8893a; --c-data:#d9c27a; --c-clin:#c9785a; --c-event:#8f8672;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 18px rgba(0,0,0,.45),0 24px 48px rgba(0,0,0,.5);
+  --shadow-up:0 2px 4px rgba(0,0,0,.45),0 14px 28px rgba(0,0,0,.55),0 36px 70px rgba(0,0,0,.65);
+  color-scheme:dark }
+:root[data-theme="amber"] .hero-band{background:
+  radial-gradient(900px 520px at 90% -15%,rgba(242,179,61,.28),transparent 62%),
+  radial-gradient(760px 520px at -8% 115%,rgba(232,137,58,.18),transparent 62%),
+  linear-gradient(135deg,#0d0b06 0%,#1d180c 56%,#2a2210 100%)}
+:root[data-theme="amber"] .hero-text::before{background:radial-gradient(ellipse at 38% 50%,rgba(13,11,6,.85) 0%,rgba(13,11,6,.6) 52%,rgba(13,11,6,0) 78%)}
+:root[data-theme="amber"] .tagline .role,:root[data-theme="amber"] .hero-band .eyebrow{color:#f2b33d}
+:root[data-theme="amber"] .hero-band .btn:not(.ghost){background:#f2b33d;color:#1a1405;border-color:#f2b33d}
+:root[data-theme="amber"] .tagline .pill{border-color:rgba(242,179,61,.7);background:rgba(242,179,61,.12)}
+:root[data-theme="amber"] main h2::after{background:linear-gradient(90deg,#f2b33d,#e8893a)}
+
+/* Fond clair : motifs gris plus pales pour garder le texte lisible */
+:root[data-theme="light"]{--motif:168,178,196}

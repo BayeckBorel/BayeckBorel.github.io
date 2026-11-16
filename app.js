@@ -252,20 +252,25 @@
   }
 
   $("#langBtn")?.addEventListener("click", () => { lang = lang === "en" ? "fr" : "en"; store.set("lang", lang); render(); });
-  /* Bouton du fond : nuit (par defaut) ou clair, choix garde pour la visite suivante. */
-  const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>';
-  const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>';
+  /* Bouton du fond : clair (par defaut), nuit, ambre ; chaque clic passe au suivant, choix garde. */
+  const THEMES = ["light", "dark", "amber"], TNAME = { light: "Light", dark: "Dark", amber: "Amber" };
+  const ICON = {
+    light: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>',
+    dark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>',
+    amber: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>'
+  };
+  const curTheme = () => { const t = document.documentElement.dataset.theme; return THEMES.includes(t) ? t : "light"; };
   function themeLabel() {
     const b = $("#themeBtn"); if (!b) return;
-    const dark = document.documentElement.dataset.theme !== "light";
-    b.querySelector(".tt-ico").innerHTML = dark ? SUN : MOON;
-    b.querySelector(".tt-txt").textContent = dark ? "Light" : "Dark";
-    const l = dark ? "Switch to the light background" : "Switch to the dark background";
-    b.setAttribute("aria-label", l); b.title = l;
+    const nx = THEMES[(THEMES.indexOf(curTheme()) + 1) % THEMES.length];
+    b.querySelector(".tt-ico").innerHTML = ICON[nx];
+    b.querySelector(".tt-txt").textContent = TNAME[nx];
+    b.dataset.next = nx;
+    const l = "Switch to the " + TNAME[nx].toLowerCase() + " background"; b.setAttribute("aria-label", l); b.title = l;
   }
   $("#themeBtn")?.addEventListener("click", () => {
-    const root = document.documentElement, dark = root.dataset.theme !== "light";
-    root.dataset.theme = dark ? "light" : "dark"; store.set("theme", root.dataset.theme); themeLabel();
+    const nx = THEMES[(THEMES.indexOf(curTheme()) + 1) % THEMES.length];
+    document.documentElement.dataset.theme = nx; store.set("theme", nx); themeLabel();
   });
   themeLabel();
   document.addEventListener("click", e => {
