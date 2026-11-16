@@ -404,3 +404,14 @@ main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
 
 :root{--motif:122,132,150}
 :root[data-theme="light"]{--motif:122,132,150}
+
+/* ===== Bouton du fond (nuit / clair), au bout de la barre d'onglets ===== */
+.tabbar-in{display:flex;align-items:center;gap:10px}
+#tabs{flex:1 1 auto;min-width:0}
+.theme-toggle{flex:none;display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--fg);background:var(--accent-soft);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer;transition:border-color .2s,background .2s}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tt-ico{display:inline-flex;color:var(--accent)}
+.tt-ico svg{width:16px;height:16px;display:block}
+@media (max-width:720px){.tt-txt{display:none}.theme-toggle{padding:9px;margin-right:10px}}
