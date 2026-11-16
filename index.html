@@ -34,8 +34,6 @@
 <header class="top">
   <div class="top-in">
     <a class="brand" href="#home"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor"/><path d="M6 24 L11 17 L16 15.5 L21 15 L26 8" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="8" r="2.6" fill="var(--bg)"/></svg><span>E. B. Soh Bayeck</span></a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" data-i18n="menu">Menu</button>
-    <nav id="nav" aria-label="Sections"></nav>
     <div class="tools">
       <a class="btn cta" href="mailto:etienne.soh@facsciences-uy1.cm?subject=Contact%20from%20your%20website" data-i18n="hero.contact"></a>
       <button id="langBtn" class="tool" aria-label="Changer de langue / Switch language" hidden>FR</button>
@@ -62,11 +60,21 @@
   </section>
 </div>
 
+<div class="tabbar" id="tabbar">
+  <div class="tabbar-in"><div id="tabs" role="tablist" aria-label="Sections"></div></div>
+  <div class="tabprog" id="tabprog" aria-hidden="true"></div>
+</div>
+
 <main id="main">
+  <div class="tabpanel" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
   <section id="about"><h2 data-i18n="nav.about"></h2><p class="prose" data-i18n="about.text"></p></section>
 
   <section id="work"><h2 data-i18n="work.title"></h2><div class="work-grid" id="workGrid"></div></section>
 
+  <section id="aspirations"><h2 data-i18n="nav.aspirations"></h2><p class="prose" data-i18n="asp.text"></p></section>
+  </div>
+
+  <div class="tabpanel" id="panel-education" role="tabpanel" aria-labelledby="tab-education" hidden>
   <section id="education">
     <h2 data-i18n="nav.education"></h2>
     <div class="edu-grid">
@@ -83,7 +91,9 @@
     <div id="honours"></div>
     <div id="languages"></div>
   </section>
+  </div>
 
+  <div class="tabpanel" id="panel-research" role="tabpanel" aria-labelledby="tab-research" hidden>
   <section id="research">
     <h2 data-i18n="nav.research"></h2>
     <p class="prose" data-i18n="research.text"></p>
@@ -96,13 +106,17 @@
   </section>
 
   <section id="publications"><h2 data-i18n="nav.publications"></h2><div id="pubList"></div></section>
+  </div>
 
+  <div class="tabpanel" id="panel-experience" role="tabpanel" aria-labelledby="tab-experience" hidden>
   <section id="experience"><h2 data-i18n="nav.experience"></h2><div id="expList" class="timeline"></div>
     <div id="expMore" class="timeline more" hidden></div>
     <p class="exp-toggle"><button type="button" class="chip" id="expBtn" aria-expanded="false" aria-controls="expMore"></button></p></section>
 
   <section id="skills"><h2 data-i18n="nav.skills"></h2><dl id="skillList" class="skills"></dl></section>
+  </div>
 
+  <div class="tabpanel" id="panel-certificates" role="tabpanel" aria-labelledby="tab-certificates" hidden>
   <section id="certificates">
     <h2 data-i18n="nav.certificates"></h2>
     <p class="prose" data-i18n="cert.intro"></p>
@@ -115,9 +129,9 @@
     <p class="small" id="certCount" aria-live="polite"></p>
     <div class="cert-grid" id="certGrid"></div>
   </section>
+  </div>
 
-  <section id="aspirations"><h2 data-i18n="nav.aspirations"></h2><p class="prose" data-i18n="asp.text"></p></section>
-
+  <div class="tabpanel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" hidden>
   <section id="referees">
     <h2 data-i18n="nav.referees"></h2>
     <div class="ref-grid" id="refList"></div>
@@ -149,6 +163,8 @@
       <p class="vsend"><button class="btn" type="submit" id="f-send" data-i18n="form.send"></button><span id="f-status" role="status"></span></p>
     </form>
   </section>
+  </div>
+
 </main>
 
 <footer><p><span data-i18n="footer.text"></span> <span id="updated"></span></p></footer>

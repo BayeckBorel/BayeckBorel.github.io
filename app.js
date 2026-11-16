@@ -121,8 +121,7 @@
     if (parts.length === 3) tg.append(el("p", "role", parts[0]), el("p", "field", parts[1]), el("p", "pill", parts[2]));
     else tg.append(el("p", "field", T[lang].hero.lede));
 
-    const nav = $("#nav"); nav.replaceChildren();
-    SECTIONS.forEach(id => { const a = el("a", null, T[lang].nav[id]); a.href = "#" + id; a.dataset.id = id; nav.append(a); });
+    buildTabs();
 
     const facts = $("#facts"); facts.replaceChildren();
     T[lang].facts.forEach(([n, l]) => { const li = el("li"); li.append(el("b", null, n), document.createTextNode(l)); facts.append(li); });
@@ -181,10 +180,75 @@
     $("#expBtn").setAttribute("aria-expanded", String(open));
   }
 
+  /* ---------- Onglets : une rubrique a la fois, barre collante, progression au defilement ---------- */
+  const TABS = ["about", "education", "research", "experience", "certificates", "contact"];
+  const TL = {
+    en: { about: "About", education: "Education", research: "Research", experience: "Experience & skills", certificates: "Certificates", contact: "Contact", next: "Next", prev: "Previous" },
+    fr: { about: "Présentation", education: "Formation", research: "Recherche", experience: "Expérience et compétences", certificates: "Certificats", contact: "Contact", next: "Suivant", prev: "Précédent" }
+  };
+  let cur = "about";
+  const panel = k => document.getElementById("panel-" + k);
+  function stick() { const h = $(".top"); return getComputedStyle(h).position === "sticky" ? h.offsetHeight : 0; }
+
+  function buildTabs() {
+    const box = $("#tabs"); box.replaceChildren();
+    TABS.forEach(k => {
+      const b = el("button", "tab", TL[lang][k]); b.type = "button"; b.id = "tab-" + k; b.dataset.k = k;
+      b.setAttribute("role", "tab"); b.setAttribute("aria-controls", "panel-" + k); box.append(b);
+    });
+    TABS.forEach((k, i) => {
+      const p = panel(k); p.querySelectorAll(".pager").forEach(x => x.remove());
+      const pg = el("div", "pager"); pg.setAttribute("role", "group");
+      [[TABS[i - 1], "prev", "← " + TL[lang].prev], [TABS[i + 1], "next", TL[lang].next + " →"]].forEach(([t, cls, dir]) => {
+        if (!t) { pg.append(el("span")); return; }
+        const b = el("button", "pg " + cls); b.type = "button"; b.dataset.k = t;
+        b.append(el("span", "pg-dir", dir), el("strong", null, TL[lang][t])); pg.append(b);
+      });
+      p.append(pg);
+    });
+    mark();
+  }
+
+  function mark() {
+    TABS.forEach(k => {
+      const on = k === cur, t = $("#tab-" + k);
+      t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1; panel(k).hidden = !on;
+    });
+  }
+
+  function show(k, o) {
+    o = o || {}; if (!TABS.includes(k)) k = "about";
+    const changed = k !== cur; cur = k; mark();
+    const p = panel(k);
+    if (changed) { p.classList.remove("enter"); void p.offsetWidth; p.classList.add("enter"); }
+    const tb = $("#tabs"), t = $("#tab-" + k);
+    tb.scrollTo({ left: Math.max(0, t.offsetLeft - (tb.clientWidth - t.offsetWidth) / 2), behavior: o.instant ? "instant" : "smooth" });
+    if (o.hash !== false) { try { history.replaceState(null, "", "#" + (o.id || k)); } catch (e) {} }
+    if (o.scroll !== false) {
+      const bar = $("#tabbar"), st = stick(), band = $(".hero-band");
+      let y = band.offsetTop + band.offsetHeight - st;
+      if (o.id) y = document.getElementById(o.id).getBoundingClientRect().top + scrollY - st - bar.offsetHeight - 14;
+      scrollTo({ top: Math.max(0, y), behavior: o.instant ? "instant" : "smooth" });
+    }
+    progress();
+  }
+
+  function route(h, initial) {
+    const id = decodeURIComponent((h || "").replace(/^#/, ""));
+    if (!id || id === "home") { if (!initial) scrollTo({ top: 0, behavior: "smooth" }); return; }
+    if (TABS.includes(id)) return show(id, { instant: initial });
+    const t = document.getElementById(id), pan = t && t.closest(".tabpanel");
+    if (pan) show(pan.id.replace("panel-", ""), { id, instant: initial });
+  }
+
+  function progress() {
+    const br = $("#tabbar").getBoundingClientRect().bottom, r = panel(cur).getBoundingClientRect();
+    const total = r.height - (innerHeight - br);
+    $("#tabprog").style.transform = "scaleX(" + (total > 0 ? Math.min(1, Math.max(0, (br - r.top) / total)) : 1) + ")";
+  }
   function spy() {
-    let cur = "";
-    SECTIONS.forEach(id => { const s = document.getElementById(id); if (s && s.getBoundingClientRect().top < 140) cur = id; });
-    document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.dataset.id === cur));
+    const hh = stick() + "px"; if (document.documentElement.style.getPropertyValue("--hh") !== hh) document.documentElement.style.setProperty("--hh", hh);
+    progress();
   }
 
   $("#langBtn").addEventListener("click", () => { lang = lang === "en" ? "fr" : "en"; store.set("lang", lang); render(); });
@@ -193,8 +257,25 @@
     const dark = root.dataset.theme === "dark";
     root.dataset.theme = dark ? "light" : "dark"; store.set("theme", root.dataset.theme);
   });
-  $("#menuBtn").addEventListener("click", () => { const open = $("#nav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", String(open)); });
-  $("#nav").addEventListener("click", e => { if (e.target.tagName === "A") { $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded", "false"); } });
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (a) { const h = a.getAttribute("href"); if (h === "#main") return; e.preventDefault(); route(h); return; }
+    const t = e.target.closest(".tab, .pg"); if (t) show(t.dataset.k);
+  });
+  $("#tabs").addEventListener("keydown", e => {
+    const i = TABS.indexOf(cur); let n = -1;
+    if (e.key === "ArrowRight") n = (i + 1) % TABS.length; else if (e.key === "ArrowLeft") n = (i + TABS.length - 1) % TABS.length;
+    else if (e.key === "Home") n = 0; else if (e.key === "End") n = TABS.length - 1;
+    if (n < 0) return; e.preventDefault(); show(TABS[n], { scroll: false }); $("#tab-" + TABS[n]).focus();
+  });
+  let sx = 0, sy = 0, skip = false;
+  $("#main").addEventListener("touchstart", e => { const t = e.touches[0]; sx = t.clientX; sy = t.clientY; skip = !!e.target.closest("input,textarea,select,table,.filters,.chart-card"); }, { passive: true });
+  $("#main").addEventListener("touchend", e => {
+    if (skip) return; const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 90 && Math.abs(dx) > 2.2 * Math.abs(dy)) { const n = TABS[TABS.indexOf(cur) + (dx < 0 ? 1 : -1)]; if (n) show(n); }
+  }, { passive: true });
+  addEventListener("hashchange", () => route(location.hash));
+  addEventListener("resize", spy);
   $("#copyMail").addEventListener("click", async () => {
     const b = $("#copyMail");
     try { await navigator.clipboard.writeText($("#mail").textContent); b.textContent = T[lang].contact.copied; setTimeout(() => (b.textContent = T[lang].contact.copy), 1600); }
@@ -228,59 +309,102 @@
   }
 
   render();
+  route(location.hash, true);
+  spy();
 
-  /* Motif anime : neurones relies par des synapses ou passent des signaux, molecules en hexagone,
-     et une double helice d'ADN au bas du bandeau. */
+  /* Fond anime : ADN en double helice, sequence du genome (A T G C) lue par une tete de lecture,
+     chromosomes, cellules (membrane, noyau, organites) et neurones relies par des synapses. */
   function motif(cv, host, o) {
     if (!cv || !cv.getContext) return;
     const ctx = cv.getContext("2d"), still = matchMedia("(prefers-reduced-motion: reduce)").matches, fixed = host === window;
-    let W = 0, H = 0, pts = [], hexes = [], pulses = [], raf = 0, on = true, t = 0, rgb = o.rgb || "22,70,127";
-    const rnd = (a, b) => a + Math.random() * (b - a);
+    let W = 0, H = 0, cells = [], nodes = [], helices = [], chroms = [], seqs = [], pulses = [], raf = 0, on = true, t = 0, rgb = o.rgb || "22,70,127";
+    const rnd = (a, b) => a + Math.random() * (b - a), clamp = (v, a, b) => Math.max(a, Math.min(b, v)), BASES = "ATGC";
     function size() {
-      const d = Math.min(devicePixelRatio || 1, 2);
+      const d = Math.min(devicePixelRatio || 1, 2), area = innerWidth * innerHeight;
       W = fixed ? innerWidth : host.clientWidth; H = fixed ? innerHeight : host.clientHeight;
       cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
-      const n = Math.max(14, Math.min(o.max, Math.round(W * H / o.density)));
-      pts = Array.from({ length: n }, () => ({ x: rnd(0, W), y: rnd(0, H), vx: rnd(-.22, .22), vy: rnd(-.22, .22), r: Math.random() < .22 ? 3.4 : 1.9 }));
-      hexes = Array.from({ length: Math.max(2, Math.round(W * H / o.hexDensity)) }, () => ({ x: rnd(0, W), y: rnd(0, H), s: rnd(14, 30), a: rnd(0, 6.28), va: rnd(-.003, .003), vx: rnd(-.1, .1), vy: rnd(-.1, .1) }));
+      const A = W * H;
+      cells = Array.from({ length: clamp(Math.round(A / o.cellDen), 3, o.maxCells) }, () => ({
+        x: rnd(0, W), y: rnd(0, H), r: rnd(15, o.cellMax), vx: rnd(-.14, .14), vy: rnd(-.14, .14), ph: rnd(0, 6.28), rot: rnd(0, 6.28), vr: rnd(-.003, .003), nuc: rnd(.3, .44),
+        org: Array.from({ length: 3 + ((Math.random() * 3) | 0) }, () => ({ a: rnd(0, 6.28), d: rnd(.52, .8), s: rnd(1.1, 2.3) }))
+      }));
+      nodes = Array.from({ length: clamp(Math.round(A / o.nodeDen), 10, 46) }, () => ({ x: rnd(0, W), y: rnd(0, H), vx: rnd(-.2, .2), vy: rnd(-.2, .2), r: Math.random() < .2 ? 3.2 : 1.8 }));
+      helices = Array.from({ length: o.helices }, (_, i) => ({
+        x: rnd(.08, .92) * W, y: rnd(.1, .9) * H, a: i % 2 ? rnd(.5, 1.1) : rnd(-1.2, -.6), len: rnd(.32, .5) * Math.hypot(W, H), A: rnd(11, 17), wl: rnd(120, 170), sp: rnd(.012, .02), vx: rnd(-.1, .1), vy: rnd(-.08, .08)
+      }));
+      chroms = Array.from({ length: o.chroms }, () => ({ x: rnd(0, W), y: rnd(0, H), s: rnd(8, 13), a: rnd(0, 6.28), va: rnd(-.004, .004), vx: rnd(-.12, .12), vy: rnd(-.12, .12) }));
+      const cols = Math.ceil(W / 15) + 4, startRows = o.seqs;
+      seqs = Array.from({ length: startRows }, (_, i) => ({ y: (i + .7) * H / (startRows + .4) + rnd(-20, 20), off: rnd(0, 400), v: (i % 2 ? -1 : 1) * rnd(.18, .34), head: rnd(0, W), hv: rnd(.7, 1.3) * (i % 2 ? -1 : 1), s: Array.from({ length: cols }, () => BASES[(Math.random() * 4) | 0]) }));
       pulses = [];
     }
     function frame() {
       if (!o.rgb && t % 40 === 0) rgb = getComputedStyle(document.documentElement).getPropertyValue("--motif").trim() || rgb;
       t++; ctx.clearRect(0, 0, W, H);
-      const c = a => `rgba(${rgb},${a})`, R = o.reach, edges = [];
-      for (const p of pts) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
-      ctx.lineWidth = 1;
-      for (let i = 0; i < pts.length; i++) for (let k = i + 1; k < pts.length; k++) {
-        const p = pts[i], q = pts[k], d = Math.hypot(p.x - q.x, p.y - q.y);
-        if (d < R) { ctx.strokeStyle = c((1 - d / R) * o.line); ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); edges.push([p, q]); }
+      const c = a => `rgba(${rgb},${Math.min(1, a * o.k)})`;
+
+      /* sequence du genome */
+      ctx.font = "600 12px ui-monospace,Consolas,Menlo,monospace"; ctx.textBaseline = "middle";
+      for (const r of seqs) {
+        r.off = (r.off + r.v) % 15; r.head += r.hv; if (r.head > W + 60) r.head = -60; if (r.head < -60) r.head = W + 60;
+        for (let i = 0; i < r.s.length; i++) {
+          const x = i * 15 - r.off - 15 * (r.v > 0 ? 1 : 0), dist = Math.abs(x - r.head), hot = dist < 54;
+          ctx.fillStyle = c(hot ? .9 - dist / 90 : .17); ctx.fillText(r.s[i], x, r.y);
+        }
+        ctx.strokeStyle = c(.4); ctx.lineWidth = 1; ctx.beginPath(); ctx.rect(r.head - 56, r.y - 9, 112, 18); ctx.stroke();
       }
-      if (edges.length && pulses.length < o.pulses && Math.random() < .08) { const e = edges[(Math.random() * edges.length) | 0]; pulses.push({ a: e[0], b: e[1], p: 0, s: rnd(.01, .022) }); }
+
+      /* ADN */
+      for (const h of helices) {
+        h.x += h.vx; h.y += h.vy; if (h.x < -80 || h.x > W + 80) h.vx *= -1; if (h.y < -80 || h.y > H + 80) h.vy *= -1;
+        const dx = Math.cos(h.a), dy = Math.sin(h.a), nx = -dy, ny = dx, k = 6.2832 / h.wl, ph = t * h.sp;
+        ctx.lineWidth = 1.4;
+        for (let s = -h.len / 2; s <= h.len / 2; s += h.wl / 8) {
+          const q = Math.sin(s * k + ph), z = Math.cos(s * k + ph);
+          ctx.strokeStyle = c(.1 + .3 * Math.abs(z)); ctx.beginPath();
+          ctx.moveTo(h.x + dx * s + nx * h.A * q, h.y + dy * s + ny * h.A * q); ctx.lineTo(h.x + dx * s - nx * h.A * q, h.y + dy * s - ny * h.A * q); ctx.stroke();
+        }
+        ctx.lineWidth = 1.8;
+        for (const sh of [0, Math.PI]) {
+          ctx.strokeStyle = c(.55); ctx.beginPath();
+          for (let s = -h.len / 2; s <= h.len / 2; s += 5) { const q = Math.sin(s * k + ph + sh), x = h.x + dx * s + nx * h.A * q, y = h.y + dy * s + ny * h.A * q; if (s > -h.len / 2) ctx.lineTo(x, y); else ctx.moveTo(x, y); }
+          ctx.stroke();
+        }
+      }
+
+      /* cellules */
+      for (const e of cells) {
+        e.x += e.vx; e.y += e.vy; e.rot += e.vr; if (e.x < -e.r || e.x > W + e.r) e.vx *= -1; if (e.y < -e.r || e.y > H + e.r) e.vy *= -1;
+        const w = 1 + .035 * Math.sin(t * .02 + e.ph), r = e.r * w;
+        ctx.strokeStyle = c(.5); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(e.x, e.y, r, 0, 6.2832); ctx.stroke();
+        ctx.strokeStyle = c(.18); ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(e.x, e.y, r * .86, 0, 6.2832); ctx.stroke();
+        ctx.fillStyle = c(.2); ctx.beginPath(); ctx.arc(e.x + r * .06, e.y - r * .05, r * e.nuc, 0, 6.2832); ctx.fill();
+        ctx.strokeStyle = c(.5); ctx.beginPath(); ctx.arc(e.x + r * .06, e.y - r * .05, r * e.nuc, 0, 6.2832); ctx.stroke();
+        ctx.fillStyle = c(.7); ctx.beginPath(); ctx.arc(e.x + r * .1, e.y - r * .02, Math.max(1.6, r * .09), 0, 6.2832); ctx.fill();
+        for (const g of e.org) { const a = g.a + e.rot; ctx.fillStyle = c(.48); ctx.beginPath(); ctx.arc(e.x + Math.cos(a) * r * g.d, e.y + Math.sin(a) * r * g.d, g.s, 0, 6.2832); ctx.fill(); }
+      }
+
+      /* chromosomes */
+      ctx.lineCap = "round";
+      for (const h of chroms) {
+        h.x += h.vx; h.y += h.vy; h.a += h.va; if (h.x < 0 || h.x > W) h.vx *= -1; if (h.y < 0 || h.y > H) h.vy *= -1;
+        ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.a); ctx.strokeStyle = c(.55); ctx.lineWidth = 4.2;
+        ctx.beginPath(); ctx.moveTo(-h.s, -h.s * 1.25); ctx.quadraticCurveTo(-h.s * .15, 0, h.s, h.s * 1.25); ctx.moveTo(h.s, -h.s * 1.25); ctx.quadraticCurveTo(h.s * .15, 0, -h.s, h.s * 1.25); ctx.stroke();
+        ctx.fillStyle = c(.85); ctx.beginPath(); ctx.arc(0, 0, 2.2, 0, 6.2832); ctx.fill(); ctx.restore();
+      }
+      ctx.lineCap = "butt";
+
+      /* neurones et synapses */
+      for (const p of nodes) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+      const edges = []; ctx.lineWidth = 1;
+      for (let i = 0; i < nodes.length; i++) for (let k = i + 1; k < nodes.length; k++) {
+        const p = nodes[i], q = nodes[k], d = Math.hypot(p.x - q.x, p.y - q.y);
+        if (d < o.reach) { ctx.strokeStyle = c((1 - d / o.reach) * .3); ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); edges.push([p, q]); }
+      }
+      if (edges.length && pulses.length < 6 && Math.random() < .07) { const e = edges[(Math.random() * edges.length) | 0]; pulses.push({ a: e[0], b: e[1], p: 0, s: rnd(.012, .022) }); }
       pulses = pulses.filter(q => (q.p += q.s) < 1);
-      for (const q of pulses) {
-        const x = q.a.x + (q.b.x - q.a.x) * q.p, y = q.a.y + (q.b.y - q.a.y) * q.p;
-        ctx.fillStyle = c(o.node * .28); ctx.beginPath(); ctx.arc(x, y, 6, 0, 6.283); ctx.fill();
-        ctx.fillStyle = c(Math.min(1, o.node * 1.3)); ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 6.283); ctx.fill();
-      }
-      for (const p of pts) {
-        ctx.fillStyle = c(o.node * (p.r > 3 ? 1 : .7)); ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
-        if (p.r > 3) { ctx.strokeStyle = c(o.node * .4); ctx.beginPath(); ctx.arc(p.x, p.y, p.r + 4, 0, 6.283); ctx.stroke(); }
-      }
-      ctx.lineWidth = 1.2;
-      for (const x of hexes) {
-        x.x += x.vx; x.y += x.vy; x.a += x.va;
-        if (x.x < -40) x.x = W + 40; if (x.x > W + 40) x.x = -40; if (x.y < -40) x.y = H + 40; if (x.y > H + 40) x.y = -40;
-        const v = i => [x.x + x.s * Math.cos(x.a + i * Math.PI / 3), x.y + x.s * Math.sin(x.a + i * Math.PI / 3)];
-        const w = i => [x.x + x.s * .74 * Math.cos(x.a + i * Math.PI / 3), x.y + x.s * .74 * Math.sin(x.a + i * Math.PI / 3)];
-        ctx.strokeStyle = c(o.hex); ctx.beginPath(); for (let i = 0; i < 6; i++) { const p = v(i); if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.stroke();
-        ctx.beginPath(); for (let i = 0; i < 6; i += 2) { const p = w(i), q = w(i + 1); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); } ctx.stroke();
-      }
-      if (o.helix) {
-        const base = H - 44, A = 15, k = 2 * Math.PI / 170, ph = t * .018;
-        for (let x = 0; x <= W; x += 17) { const s = Math.sin(x * k + ph); ctx.strokeStyle = c(.1 + .22 * Math.abs(Math.cos(x * k + ph))); ctx.beginPath(); ctx.moveTo(x, base + A * s); ctx.lineTo(x, base - A * s); ctx.stroke(); }
-        ctx.lineWidth = 1.6;
-        for (const sh of [0, Math.PI]) { ctx.strokeStyle = c(.5); ctx.beginPath(); for (let x = 0; x <= W; x += 6) { const y = base + A * Math.sin(x * k + ph + sh); if (x) ctx.lineTo(x, y); else ctx.moveTo(x, y); } ctx.stroke(); }
-      }
+      for (const q of pulses) { const x = q.a.x + (q.b.x - q.a.x) * q.p, y = q.a.y + (q.b.y - q.a.y) * q.p; ctx.fillStyle = c(.28); ctx.beginPath(); ctx.arc(x, y, 6, 0, 6.2832); ctx.fill(); ctx.fillStyle = c(.95); ctx.beginPath(); ctx.arc(x, y, 2.3, 0, 6.2832); ctx.fill(); }
+      for (const p of nodes) { ctx.fillStyle = c(p.r > 3 ? .8 : .55); ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill(); }
+
       if (!still && on) raf = requestAnimationFrame(frame);
     }
     const restart = () => { cancelAnimationFrame(raf); size(); frame(); };
@@ -288,8 +412,8 @@
     else if ("ResizeObserver" in window) new ResizeObserver(restart).observe(host); else restart();
     document.addEventListener("visibilitychange", () => { const v = !document.hidden; if (v && !on) { on = true; cancelAnimationFrame(raf); frame(); } else on = v; });
   }
-  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "190,225,255", max: 70, density: 15000, reach: 135, line: .34, node: .8, hex: .24, hexDensity: 160000, pulses: 8, helix: true });
-  motif($("#bg"), window, { max: 46, density: 30000, reach: 150, line: .13, node: .24, hex: .17, hexDensity: 200000, pulses: 5 });
+  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "200,228,255", k: 1, cellDen: 52000, maxCells: 14, cellMax: 40, nodeDen: 30000, reach: 120, helices: 3, chroms: 4, seqs: 3 });
+  motif($("#bg"), window, { k: .34, cellDen: 95000, maxCells: 14, cellMax: 48, nodeDen: 60000, reach: 150, helices: 3, chroms: 6, seqs: 3 });
 
   /* Apparition douce des rubriques au defilement. */
   if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
