@@ -324,7 +324,7 @@
       W = fixed ? innerWidth : host.clientWidth; H = fixed ? innerHeight : host.clientHeight;
       cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
       const A = W * H;
-      cells = Array.from({ length: clamp(Math.round(A / o.cellDen), 3, o.maxCells) }, () => ({
+      cells = o.cells === false ? [] : Array.from({ length: clamp(Math.round(A / o.cellDen), 3, o.maxCells) }, () => ({
         x: rnd(0, W), y: rnd(0, H), r: rnd(15, o.cellMax), vx: rnd(-.14, .14), vy: rnd(-.14, .14), ph: rnd(0, 6.28), rot: rnd(0, 6.28), vr: rnd(-.003, .003), nuc: rnd(.3, .44),
         org: Array.from({ length: 3 + ((Math.random() * 3) | 0) }, () => ({ a: rnd(0, 6.28), d: rnd(.52, .8), s: rnd(1.1, 2.3) }))
       }));
@@ -412,8 +412,20 @@
     else if ("ResizeObserver" in window) new ResizeObserver(restart).observe(host); else restart();
     document.addEventListener("visibilitychange", () => { const v = !document.hidden; if (v && !on) { on = true; cancelAnimationFrame(raf); frame(); } else on = v; });
   }
-  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "200,228,255", k: 1, cellDen: 52000, maxCells: 14, cellMax: 40, nodeDen: 30000, reach: 120, helices: 3, chroms: 4, seqs: 3 });
+  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "150,190,240", k: .5, cells: false, cellDen: 52000, maxCells: 14, cellMax: 40, nodeDen: 30000, reach: 120, helices: 3, chroms: 3, seqs: 3 });
   motif($("#bg"), window, { k: .34, cellDen: 95000, maxCells: 14, cellMax: 48, nodeDen: 60000, reach: 150, helices: 3, chroms: 6, seqs: 3 });
+
+  /* Photo : se souleve et s'incline vers la souris au survol. */
+  (function () {
+    const pw = $(".portrait-wrap"), pi = $(".portrait");
+    if (!pw || !pi || !matchMedia("(hover: hover)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    pw.addEventListener("pointerenter", () => pi.classList.add("lift"));
+    pw.addEventListener("pointermove", e => {
+      const r = pw.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      pi.style.setProperty("--ry", (x * 16).toFixed(2) + "deg"); pi.style.setProperty("--rx", (-y * 16).toFixed(2) + "deg");
+    });
+    pw.addEventListener("pointerleave", () => { pi.classList.remove("lift"); pi.style.setProperty("--rx", "0deg"); pi.style.setProperty("--ry", "0deg"); });
+  })();
 
   /* Apparition douce des rubriques au defilement. */
   if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
