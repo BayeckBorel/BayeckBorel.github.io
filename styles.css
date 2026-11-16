@@ -436,3 +436,5 @@ main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
 
 /* Fond clair : motifs gris plus pales pour garder le texte lisible */
 :root[data-theme="light"]{--motif:168,178,196}
+
+footer p{text-transform:none;letter-spacing:0;font-size:.84rem;line-height:1.6;max-width:72ch;margin:0}

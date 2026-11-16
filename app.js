@@ -170,7 +170,6 @@
     const rf = $("#refList"); rf.replaceChildren();
     REFS.forEach(r => { const c = el("div", "ref"); c.append(el("p", "role", r[lang].role), el("h3", null, r.name), el("p", null, r[lang].d)); rf.append(c); });
 
-    $("#updated").textContent = fmtDate(UPDATED) + ".";
     spy();
   }
 
