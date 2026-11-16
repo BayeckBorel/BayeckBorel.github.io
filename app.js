@@ -144,7 +144,7 @@
   $("#langBtn").addEventListener("click", () => { lang = lang === "en" ? "fr" : "en"; store.set("lang", lang); render(); });
   $("#themeBtn").addEventListener("click", () => {
     const root = document.documentElement;
-    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const dark = root.dataset.theme === "dark";
     root.dataset.theme = dark ? "light" : "dark"; store.set("theme", root.dataset.theme);
   });
   $("#menuBtn").addEventListener("click", () => { const open = $("#nav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", String(open)); });

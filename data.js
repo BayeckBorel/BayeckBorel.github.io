@@ -15,9 +15,9 @@ const T = {
     about: { text: "Biochemist (MSc in Biotechnology and Development) with expertise in molecular biology, immunology, parasitology and bioinformatics. Skilled in integrating laboratory and computational approaches to study host-parasite interactions, immunopathology, drug discovery and therapeutic responses. Highly motivated to contribute to research in infection biology, to vaccine and therapeutic development applied to neglected tropical diseases, and to other areas of molecular and biochemical research in Cameroon and elsewhere." },
     chart: {
       title: "Academic progression",
-      sub: "Grade point average on a 4-point scale, University of Yaoundé 1",
-      note: "The three values come from my degree records. The final-year value is part of the MSc and is shown separately because it is the most recent year.",
-      aria: "Line chart of grade point average: BSc cumulative 2.60, MSc cumulative 3.28, MSc final year 3.56, on a 4-point scale."
+      sub: "Grade point average of each year on a 4-point scale, University of Yaoundé 1",
+      note: "Annual grade point averages taken from my official transcripts. In each of the five years I earned 60 of 60 credits.",
+      aria: "Line chart of the annual grade point average on a 4-point scale: BSc year 1 2.09, BSc year 2 2.78, BSc year 3 2.95, MSc year 1 3.00, MSc year 2 3.56."
     },
     honoursTitle: "Honours and awards", languagesTitle: "Languages",
     research: {
@@ -51,9 +51,9 @@ const T = {
     about: { text: "Biochimiste (Master en Biotechnologie et Développement) avec une expertise en biologie moléculaire, immunologie, parasitologie et bio-informatique. J'associe les approches de laboratoire et les approches computationnelles pour étudier les interactions hôte-parasite, l'immunopathologie, la découverte de médicaments et les réponses thérapeutiques. Je souhaite contribuer à la recherche en biologie des infections, au développement de vaccins et de traitements contre les maladies tropicales négligées, et à d'autres domaines de la recherche moléculaire et biochimique, au Cameroun et ailleurs." },
     chart: {
       title: "Progression académique",
-      sub: "Moyenne sur une échelle de 4 points, Université de Yaoundé 1",
-      note: "Les trois valeurs viennent de mes relevés de diplôme. La valeur de l'année finale fait partie du Master et elle est montrée à part parce que c'est l'année la plus récente.",
-      aria: "Courbe de la moyenne : Licence cumulée 2.60, Master cumulé 3.28, année finale du Master 3.56, sur une échelle de 4 points."
+      sub: "Moyenne de chaque année sur une échelle de 4 points, Université de Yaoundé 1",
+      note: "Moyennes annuelles tirées de mes relevés de notes officiels. J'ai validé 60 crédits sur 60 à chacune des cinq années.",
+      aria: "Courbe de la moyenne annuelle sur une échelle de 4 points : Licence 1 2.09, Licence 2 2.78, Licence 3 2.95, Master 1 3.00, Master 2 3.56."
     },
     honoursTitle: "Distinctions", languagesTitle: "Langues",
     research: {
@@ -76,11 +76,13 @@ const T = {
   }
 };
 
-/* Points de la courbe. Pour une courbe année par année, remplacer par cinq points (L1, L2, L3, M1, M2). */
+/* Points de la courbe : moyenne annuelle lue sur les releves de notes officiels. */
 const GPA = [
-  { v: 2.60, en: ["BSc", "cumulative", "2018 - 2021"], fr: ["Licence", "cumulée", "2018 - 2021"] },
-  { v: 3.28, en: ["MSc", "cumulative", "2021 - 2024"], fr: ["Master", "cumulé", "2021 - 2024"] },
-  { v: 3.56, en: ["MSc", "final year", "17.8/20"], fr: ["Master", "année finale", "17.8/20"] }
+  { v: 2.09, en: ["L1", "BSc year 1", "2018/19"], fr: ["L1", "Licence 1", "2018/19"] },
+  { v: 2.78, en: ["L2", "BSc year 2", "2019/20"], fr: ["L2", "Licence 2", "2019/20"] },
+  { v: 2.95, en: ["L3", "BSc year 3", "2020/21"], fr: ["L3", "Licence 3", "2020/21"] },
+  { v: 3.00, en: ["M1", "MSc year 1", "2021/22"], fr: ["M1", "Master 1", "2021/22"] },
+  { v: 3.56, en: ["M2", "MSc year 2", "2023/24"], fr: ["M2", "Master 2", "2023/24"] }
 ];
 
 const EDU = [
@@ -108,8 +110,8 @@ const HONOURS = {
 };
 
 const LANGS = {
-  en: [["French", "Mother tongue"], ["English", "Master's thesis written and defended in English. Assessed by the onSET test (g.a.s.t. e.V., 3 June 2026), with an attestation from the Department of Bilingual Studies, University of Yaoundé 1."], ["German", "A2"]],
-  fr: [["Français", "Langue maternelle"], ["Anglais", "Mémoire de Master rédigé et soutenu en anglais. Niveau évalué par le test onSET (g.a.s.t. e.V., 3 juin 2026), avec une attestation du Département d'Études Bilingues de l'Université de Yaoundé 1."], ["Allemand", "A2"]]
+  en: [["French", "Mother tongue"], ["English", "B2. Master's thesis written and defended in English."], ["German", "A2"]],
+  fr: [["Français", "Langue maternelle"], ["Anglais", "B2. Mémoire de Master rédigé et soutenu en anglais."], ["Allemand", "A2"]]
 };
 
 const PUBS = [
