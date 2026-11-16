@@ -210,3 +210,4 @@ nav a{white-space:nowrap;padding:6px 7px}
   nav.open{display:flex}nav a{padding:10px 8px;font-size:1rem}.top-in{position:relative}
   .hero-band .facts{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.hero-band .facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.facts:empty{display:none}

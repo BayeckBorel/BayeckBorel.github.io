@@ -14,11 +14,11 @@ const T = {
            skills: "Skills", certificates: "Certificates", aspirations: "Aspirations", referees: "Referees", contact: "Contact" },
     hero: {
       eyebrow: "Biochemist (MSc) · Parasitology · Drug discovery",
-      lede: "I am a biochemist trained at the University of Yaoundé 1, Cameroon. I work on schistosomiasis, at the bench and with data, and I am preparing doctoral applications for 2027.",
+      lede: "Biochemist working on schistosomiasis, at the point where computational prioritisation meets experimental validation.",
       contact: "Contact me"
     },
-    facts: [["3.56/4", "final-year GPA of the MSc, ranked first in the specialisation"], ["2.09 → 3.56", "annual GPA from the first year of the BSc to the last year of the MSc"], ["60/60", "credits earned in each of the five years"], ["1", "co-authored paper, Frontiers in Immunology, 2026"], ["20", "trainings and certificates"]],
-    about: { text: "Biochemist (MSc in Biotechnology and Development) with expertise in molecular biology, immunology, parasitology and bioinformatics. Skilled in integrating laboratory and computational approaches to study host-parasite interactions, immunopathology, drug discovery and therapeutic responses. Highly motivated to contribute to research in infection biology, to vaccine and therapeutic development applied to neglected tropical diseases, and to other areas of molecular and biochemical research in Cameroon and elsewhere." },
+    facts: [],
+    about: { text: "Biochemist with a Master's in Biotechnology and Development, working on schistosomiasis at the point where computational prioritisation meets experimental validation. Laboratory background in molecular biology, immunology and parasitology, with a working knowledge of cheminformatics and open-source predictive models applied to antischistosomal compounds. First author of a review in preparation on kinase conformational state in antischistosomal drug discovery, and co-author of a field study on praziquantel and reinfection published in Frontiers in Immunology." },
     chart: {
       title: "Academic progression",
       sub: "Grade point average of each year on a 4-point scale, University of Yaoundé 1",
@@ -58,11 +58,11 @@ const T = {
            skills: "Compétences", certificates: "Certificats", aspirations: "Aspirations", referees: "Référents", contact: "Contact" },
     hero: {
       eyebrow: "Biochimiste (MSc) · Parasitologie · Découverte de médicaments",
-      lede: "Je suis biochimiste, formé à l'Université de Yaoundé 1, au Cameroun. Je travaille sur la schistosomiase, à la paillasse et avec les données, et je prépare des candidatures doctorales pour 2027.",
+      lede: "Biochimiste travaillant sur la schistosomiase, là où la priorisation computationnelle rencontre la validation expérimentale.",
       contact: "Me contacter"
     },
-    facts: [["3.56/4", "moyenne de l'année finale du Master, premier de la spécialité"], ["2.09 → 3.56", "moyenne annuelle de la première année de Licence à la dernière année de Master"], ["60/60", "crédits validés à chacune des cinq années"], ["1", "article en co-auteur, Frontiers in Immunology, 2026"], ["20", "formations et certificats"]],
-    about: { text: "Biochimiste (Master en Biotechnologie et Développement) avec une expertise en biologie moléculaire, immunologie, parasitologie et bio-informatique. J'associe les approches de laboratoire et les approches computationnelles pour étudier les interactions hôte-parasite, l'immunopathologie, la découverte de médicaments et les réponses thérapeutiques. Je souhaite contribuer à la recherche en biologie des infections, au développement de vaccins et de traitements contre les maladies tropicales négligées, et à d'autres domaines de la recherche moléculaire et biochimique, au Cameroun et ailleurs." },
+    facts: [],
+    about: { text: "Biochimiste titulaire d'un Master en Biotechnologie et Développement, je travaille sur la schistosomiase, là où la priorisation computationnelle rencontre la validation expérimentale. Formation de laboratoire en biologie moléculaire, immunologie et parasitologie, avec des connaissances pratiques en chémoinformatique et en modèles prédictifs libres appliqués aux composés antischistosomiens. Premier auteur d'une revue en préparation sur l'état conformationnel des kinases dans la découverte de médicaments antischistosomiens, et co-auteur d'une étude de terrain sur le praziquantel et la réinfection publiée dans Frontiers in Immunology." },
     chart: {
       title: "Progression académique",
       sub: "Moyenne de chaque année sur une échelle de 4 points, Université de Yaoundé 1",
