@@ -18,7 +18,7 @@ const T = {
       contact: "Contact me"
     },
     facts: [],
-    about: { text: "Biochemist with a Master's in Biotechnology and Development, working on neglected tropical diseases at the point where computational prioritisation meets experimental validation. Laboratory background in molecular biology, immunology and parasitology, with a working knowledge of cheminformatics and open-source predictive models applied to antischistosomal compounds. First author of a review in preparation on kinase conformational state in antischistosomal drug discovery, and co-author of a field study on praziquantel and reinfection published in Frontiers in Immunology." },
+    about: { text: "Biochemist with a Master's in Biotechnology and Development, working on neglected tropical diseases at the point where computational prioritisation meets experimental validation. Laboratory background in molecular biology, immunology and parasitology, with a working knowledge of cheminformatics and open-source predictive models applied to antischistosomal compounds. Co-author of a field study on praziquantel and reinfection published in Frontiers in Immunology." },
     chart: {
       title: "Academic progression",
       sub: "Grade point average of each year on a 4-point scale, University of Yaoundé 1",
@@ -62,7 +62,7 @@ const T = {
       contact: "Me contacter"
     },
     facts: [],
-    about: { text: "Biochimiste titulaire d'un Master en Biotechnologie et Développement, je travaille sur les maladies tropicales négligées, là où la priorisation computationnelle rencontre la validation expérimentale. Formation de laboratoire en biologie moléculaire, immunologie et parasitologie, avec des connaissances pratiques en chémoinformatique et en modèles prédictifs libres appliqués aux composés antischistosomiens. Premier auteur d'une revue en préparation sur l'état conformationnel des kinases dans la découverte de médicaments antischistosomiens, et co-auteur d'une étude de terrain sur le praziquantel et la réinfection publiée dans Frontiers in Immunology." },
+    about: { text: "Biochimiste titulaire d'un Master en Biotechnologie et Développement, je travaille sur les maladies tropicales négligées, là où la priorisation computationnelle rencontre la validation expérimentale. Formation de laboratoire en biologie moléculaire, immunologie et parasitologie, avec des connaissances pratiques en chémoinformatique et en modèles prédictifs libres appliqués aux composés antischistosomiens. Co-auteur d'une étude de terrain sur le praziquantel et la réinfection publiée dans Frontiers in Immunology." },
     chart: {
       title: "Progression académique",
       sub: "Moyenne de chaque année sur une échelle de 4 points, Université de Yaoundé 1",
