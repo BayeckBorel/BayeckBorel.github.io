@@ -117,6 +117,10 @@
     $("#langBtn").textContent = lang === "en" ? "FR" : "EN";
     document.querySelectorAll("[data-i18n]").forEach(n => { const v = get(n.dataset.i18n); if (typeof v === "string") n.textContent = v; });
 
+    const tg = $("#tagline"), parts = T[lang].hero.lede.split(" | "); tg.replaceChildren();
+    if (parts.length === 3) tg.append(el("p", "role", parts[0]), el("p", "field", parts[1]), el("p", "pill", parts[2]));
+    else tg.append(el("p", "field", T[lang].hero.lede));
+
     const nav = $("#nav"); nav.replaceChildren();
     SECTIONS.forEach(id => { const a = el("a", null, T[lang].nav[id]); a.href = "#" + id; a.dataset.id = id; nav.append(a); });
 
@@ -225,34 +229,67 @@
 
   render();
 
-  /* Reseau anime du bandeau : des points relies comme les atomes d'une molecule. */
-  (function () {
-    const cv = $("#net"); if (!cv || !cv.getContext) return;
-    const ctx = cv.getContext("2d"), band = cv.parentElement;
-    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let W = 0, H = 0, pts = [], raf = 0, vis = true;
+  /* Motif anime : neurones relies par des synapses ou passent des signaux, molecules en hexagone,
+     et une double helice d'ADN au bas du bandeau. */
+  function motif(cv, host, o) {
+    if (!cv || !cv.getContext) return;
+    const ctx = cv.getContext("2d"), still = matchMedia("(prefers-reduced-motion: reduce)").matches, fixed = host === window;
+    let W = 0, H = 0, pts = [], hexes = [], pulses = [], raf = 0, on = true, t = 0, rgb = o.rgb || "22,70,127";
+    const rnd = (a, b) => a + Math.random() * (b - a);
     function size() {
-      const d = Math.min(devicePixelRatio || 1, 2); W = band.clientWidth; H = band.clientHeight;
+      const d = Math.min(devicePixelRatio || 1, 2);
+      W = fixed ? innerWidth : host.clientWidth; H = fixed ? innerHeight : host.clientHeight;
       cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
-      const n = Math.max(18, Math.min(70, Math.round(W * H / 16000)));
-      pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28, r: Math.random() < .2 ? 3.2 : 1.8 }));
+      const n = Math.max(14, Math.min(o.max, Math.round(W * H / o.density)));
+      pts = Array.from({ length: n }, () => ({ x: rnd(0, W), y: rnd(0, H), vx: rnd(-.22, .22), vy: rnd(-.22, .22), r: Math.random() < .22 ? 3.4 : 1.9 }));
+      hexes = Array.from({ length: Math.max(2, Math.round(W * H / o.hexDensity)) }, () => ({ x: rnd(0, W), y: rnd(0, H), s: rnd(14, 30), a: rnd(0, 6.28), va: rnd(-.003, .003), vx: rnd(-.1, .1), vy: rnd(-.1, .1) }));
+      pulses = [];
     }
     function frame() {
-      ctx.clearRect(0, 0, W, H);
+      if (!o.rgb && t % 40 === 0) rgb = getComputedStyle(document.documentElement).getPropertyValue("--motif").trim() || rgb;
+      t++; ctx.clearRect(0, 0, W, H);
+      const c = a => `rgba(${rgb},${a})`, R = o.reach, edges = [];
       for (const p of pts) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+      ctx.lineWidth = 1;
       for (let i = 0; i < pts.length; i++) for (let k = i + 1; k < pts.length; k++) {
-        const a = pts[i], b = pts[k], d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < 130) { ctx.strokeStyle = `rgba(190,235,240,${(1 - d / 130) * .32})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+        const p = pts[i], q = pts[k], d = Math.hypot(p.x - q.x, p.y - q.y);
+        if (d < R) { ctx.strokeStyle = c((1 - d / R) * o.line); ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); edges.push([p, q]); }
       }
-      for (const p of pts) { ctx.fillStyle = p.r > 3 ? "rgba(150,235,220,.85)" : "rgba(255,255,255,.6)"; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); }
-      if (!still && vis) raf = requestAnimationFrame(frame);
+      if (edges.length && pulses.length < o.pulses && Math.random() < .08) { const e = edges[(Math.random() * edges.length) | 0]; pulses.push({ a: e[0], b: e[1], p: 0, s: rnd(.01, .022) }); }
+      pulses = pulses.filter(q => (q.p += q.s) < 1);
+      for (const q of pulses) {
+        const x = q.a.x + (q.b.x - q.a.x) * q.p, y = q.a.y + (q.b.y - q.a.y) * q.p;
+        ctx.fillStyle = c(o.node * .28); ctx.beginPath(); ctx.arc(x, y, 6, 0, 6.283); ctx.fill();
+        ctx.fillStyle = c(Math.min(1, o.node * 1.3)); ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 6.283); ctx.fill();
+      }
+      for (const p of pts) {
+        ctx.fillStyle = c(o.node * (p.r > 3 ? 1 : .7)); ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
+        if (p.r > 3) { ctx.strokeStyle = c(o.node * .4); ctx.beginPath(); ctx.arc(p.x, p.y, p.r + 4, 0, 6.283); ctx.stroke(); }
+      }
+      ctx.lineWidth = 1.2;
+      for (const x of hexes) {
+        x.x += x.vx; x.y += x.vy; x.a += x.va;
+        if (x.x < -40) x.x = W + 40; if (x.x > W + 40) x.x = -40; if (x.y < -40) x.y = H + 40; if (x.y > H + 40) x.y = -40;
+        const v = i => [x.x + x.s * Math.cos(x.a + i * Math.PI / 3), x.y + x.s * Math.sin(x.a + i * Math.PI / 3)];
+        const w = i => [x.x + x.s * .74 * Math.cos(x.a + i * Math.PI / 3), x.y + x.s * .74 * Math.sin(x.a + i * Math.PI / 3)];
+        ctx.strokeStyle = c(o.hex); ctx.beginPath(); for (let i = 0; i < 6; i++) { const p = v(i); if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.stroke();
+        ctx.beginPath(); for (let i = 0; i < 6; i += 2) { const p = w(i), q = w(i + 1); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); } ctx.stroke();
+      }
+      if (o.helix) {
+        const base = H - 44, A = 15, k = 2 * Math.PI / 170, ph = t * .018;
+        for (let x = 0; x <= W; x += 17) { const s = Math.sin(x * k + ph); ctx.strokeStyle = c(.1 + .22 * Math.abs(Math.cos(x * k + ph))); ctx.beginPath(); ctx.moveTo(x, base + A * s); ctx.lineTo(x, base - A * s); ctx.stroke(); }
+        ctx.lineWidth = 1.6;
+        for (const sh of [0, Math.PI]) { ctx.strokeStyle = c(.5); ctx.beginPath(); for (let x = 0; x <= W; x += 6) { const y = base + A * Math.sin(x * k + ph + sh); if (x) ctx.lineTo(x, y); else ctx.moveTo(x, y); } ctx.stroke(); }
+      }
+      if (!still && on) raf = requestAnimationFrame(frame);
     }
-    function restart() { cancelAnimationFrame(raf); size(); frame(); }
-    if ("ResizeObserver" in window) new ResizeObserver(restart).observe(band); else { restart(); addEventListener("resize", restart); }
-    if ("IntersectionObserver" in window) new IntersectionObserver(e => {
-      const v = e[0].isIntersecting; if (v && !vis) { vis = true; cancelAnimationFrame(raf); frame(); } else vis = v;
-    }).observe(band);
-  })();
+    const restart = () => { cancelAnimationFrame(raf); size(); frame(); };
+    if (fixed) { let tm; addEventListener("resize", () => { clearTimeout(tm); tm = setTimeout(restart, 150); }); restart(); }
+    else if ("ResizeObserver" in window) new ResizeObserver(restart).observe(host); else restart();
+    document.addEventListener("visibilitychange", () => { const v = !document.hidden; if (v && !on) { on = true; cancelAnimationFrame(raf); frame(); } else on = v; });
+  }
+  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "190,225,255", max: 70, density: 15000, reach: 135, line: .34, node: .8, hex: .24, hexDensity: 160000, pulses: 8, helix: true });
+  motif($("#bg"), window, { max: 46, density: 30000, reach: 150, line: .13, node: .24, hex: .17, hexDensity: 200000, pulses: 5 });
 
   /* Apparition douce des rubriques au defilement. */
   if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
