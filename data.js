@@ -4,8 +4,8 @@ const UPDATED = "2026-11-16";
 /* Reglages a remplir quand les comptes existent. Vide = la fonction reste eteinte.
    GOATCOUNTER : le nom choisi sur goatcounter.com (pour monsite.goatcounter.com, ecrire "monsite").
    FORM_ENDPOINT : l'adresse donnee par formspree.io, du type "https://formspree.io/f/xxxxxxxx". */
-const GOATCOUNTER = "";
-const FORM_ENDPOINT = "";
+const GOATCOUNTER = "bayeckborel";
+const FORM_ENDPOINT = "https://formspree.io/f/xrpqpjlw";
 
 const T = {
   en: {
