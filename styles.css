@@ -397,3 +397,7 @@ main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
   box-shadow:0 6px 12px rgba(0,8,20,.35),0 26px 50px rgba(0,8,20,.5),0 60px 100px rgba(0,8,20,.6)}
 @media (max-width:860px){.portrait-wrap{order:-1;max-width:230px}.hero-text::before{inset:-24px -20px -24px -20px}}
 @media (prefers-reduced-motion:reduce){.portrait-wrap{animation:none}.hero-band .portrait{transition:none}}
+
+/* Motifs du fond : gris ardoise, plus sombres que le texte */
+:root{--motif:72,84,106}
+:root[data-theme="light"]{--motif:72,84,106}

@@ -412,7 +412,7 @@
     else if ("ResizeObserver" in window) new ResizeObserver(restart).observe(host); else restart();
     document.addEventListener("visibilitychange", () => { const v = !document.hidden; if (v && !on) { on = true; cancelAnimationFrame(raf); frame(); } else on = v; });
   }
-  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "150,190,240", k: .5, cells: false, cellDen: 52000, maxCells: 14, cellMax: 40, nodeDen: 30000, reach: 120, helices: 3, chroms: 3, seqs: 3 });
+  motif($("#net"), $("#net") && $("#net").parentElement, { rgb: "70,82,104", k: .85, cells: false, cellDen: 52000, maxCells: 14, cellMax: 40, nodeDen: 30000, reach: 120, helices: 3, chroms: 3, seqs: 3 });
   motif($("#bg"), window, { k: .34, cellDen: 95000, maxCells: 14, cellMax: 48, nodeDen: 60000, reach: 150, helices: 3, chroms: 6, seqs: 3 });
 
   /* Photo : se souleve et s'incline vers la souris au survol. */
