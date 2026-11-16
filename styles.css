@@ -351,3 +351,30 @@ nav a{font-size:.69rem;letter-spacing:.055em;padding:8px 6px}
 }
 @media (prefers-reduced-motion:reduce){.tabpanel.enter{animation:none}.pg{transition:none}.tabprog{transition:none}}
 @media print{.tabbar,.pager{display:none}.tabpanel[hidden]{display:block}}
+
+/* ================= Palette Fluorescence : nuit, bleu ADN, vert cellule ================= */
+:root{
+  --bg:#0a1226; --surface:#111c36; --fg:#e9eef7; --muted:#9fb0cb; --line:#223357;
+  --accent:#6fb0ff; --accent2:#3ddc97; --accent-soft:#162a52; --on-accent:#04122b; --mark:#f5b86b; --motif:111,176,255;
+  --c-dd:#6fb0ff; --c-lab:#3ddc97; --c-data:#b99bff; --c-clin:#ff8fb8; --c-event:#8c9bb5;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 18px rgba(0,0,0,.4),0 24px 48px rgba(0,0,0,.45);
+  --shadow-up:0 2px 4px rgba(0,0,0,.4),0 14px 28px rgba(0,0,0,.5),0 36px 70px rgba(0,0,0,.6);
+  color-scheme:dark }
+:root[data-theme="light"]{
+  --bg:#eef3fb; --surface:#ffffff; --fg:#0a1226; --muted:#4a5b78; --line:#d0dae9;
+  --accent:#1f56c4; --accent2:#0e9a68; --accent-soft:#e1ebfa; --on-accent:#ffffff; --mark:#9a4a12; --motif:31,86,196;
+  --c-dd:#1f56c4; --c-lab:#0e9a68; --c-data:#6247aa; --c-clin:#c23a73; --c-event:#7d8793;
+  --shadow:0 1px 2px rgba(10,18,38,.06),0 6px 14px rgba(10,18,38,.08),0 22px 44px rgba(10,18,38,.13);
+  --shadow-up:0 2px 4px rgba(10,18,38,.07),0 12px 24px rgba(10,18,38,.12),0 34px 64px rgba(10,18,38,.2);
+  color-scheme:light }
+.hero-band{background:
+  radial-gradient(900px 520px at 90% -15%,rgba(47,111,224,.45),transparent 62%),
+  radial-gradient(760px 520px at -8% 115%,rgba(31,185,122,.22),transparent 62%),
+  linear-gradient(135deg,#050b1c 0%,#0a1a3e 56%,#0b3446 100%)}
+.tagline .role{color:#3ddc97}
+.hero-band .eyebrow{color:#3ddc97}
+.hero-band .btn:not(.ghost){background:#3ddc97;color:#04281a;border-color:#3ddc97}
+.hero-band .btn.ghost{border-color:rgba(255,255,255,.5)}
+.tagline .pill{border-color:rgba(111,176,255,.7);background:rgba(111,176,255,.14)}
+main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
+:root[data-theme="light"] main h2::after{background:linear-gradient(90deg,#1f56c4,#0e9a68)}

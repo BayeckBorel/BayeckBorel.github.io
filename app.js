@@ -254,7 +254,7 @@
   $("#langBtn").addEventListener("click", () => { lang = lang === "en" ? "fr" : "en"; store.set("lang", lang); render(); });
   $("#themeBtn").addEventListener("click", () => {
     const root = document.documentElement;
-    const dark = root.dataset.theme === "dark";
+    const dark = root.dataset.theme !== "light";
     root.dataset.theme = dark ? "light" : "dark"; store.set("theme", root.dataset.theme);
   });
   document.addEventListener("click", e => {
