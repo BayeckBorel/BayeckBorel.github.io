@@ -114,7 +114,7 @@
 
   function render() {
     document.documentElement.lang = lang;
-    $("#langBtn").textContent = lang === "en" ? "FR" : "EN";
+    if ($("#langBtn")) $("#langBtn").textContent = lang === "en" ? "FR" : "EN";
     document.querySelectorAll("[data-i18n]").forEach(n => { const v = get(n.dataset.i18n); if (typeof v === "string") n.textContent = v; });
 
     const tg = $("#tagline"), parts = T[lang].hero.lede.split(" | "); tg.replaceChildren();
@@ -188,7 +188,7 @@
   };
   let cur = "about";
   const panel = k => document.getElementById("panel-" + k);
-  function stick() { const h = $(".top"); return getComputedStyle(h).position === "sticky" ? h.offsetHeight : 0; }
+  function stick() { const h = $(".top"); return h && getComputedStyle(h).position === "sticky" ? h.offsetHeight : 0; }
 
   function buildTabs() {
     const box = $("#tabs"); box.replaceChildren();
@@ -251,8 +251,8 @@
     progress();
   }
 
-  $("#langBtn").addEventListener("click", () => { lang = lang === "en" ? "fr" : "en"; store.set("lang", lang); render(); });
-  $("#themeBtn").addEventListener("click", () => {
+  $("#langBtn")?.addEventListener("click", () => { lang = lang === "en" ? "fr" : "en"; store.set("lang", lang); render(); });
+  $("#themeBtn")?.addEventListener("click", () => {
     const root = document.documentElement;
     const dark = root.dataset.theme !== "light";
     root.dataset.theme = dark ? "light" : "dark"; store.set("theme", root.dataset.theme);

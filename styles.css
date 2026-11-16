@@ -378,3 +378,7 @@ nav a{font-size:.69rem;letter-spacing:.055em;padding:8px 6px}
 .tagline .pill{border-color:rgba(111,176,255,.7);background:rgba(111,176,255,.14)}
 main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
 :root[data-theme="light"] main h2::after{background:linear-gradient(90deg,#1f56c4,#0e9a68)}
+
+:root{--hh:0px}
+.hero-band .hero{padding-top:64px}
+@media (max-width:860px){.hero-band .hero{padding-top:36px}}
