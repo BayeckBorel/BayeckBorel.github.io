@@ -145,8 +145,16 @@
     });
     const cf = el("div", "pub"); cf.append(el("span", "status", T[lang].conf), el("p", null, CONF[lang])); pubs.append(cf);
 
-    const exp = $("#expList"); exp.replaceChildren();
-    EXP.forEach(e => { const x = e[lang]; exp.append(entry(x.when, x.t, x.w, x.b, x.k)); });
+    const wk = $("#workGrid"); wk.replaceChildren();
+    T[lang].work.items.forEach(w => {
+      const c = el("article", "work"); const a = el("a", "work-link", w.link + " →"); a.href = w.href;
+      if (w.href.startsWith("http")) { a.target = "_blank"; a.rel = "noopener"; }
+      c.append(el("p", "work-fig", w.fig), el("h3", null, w.t), el("p", "work-d", w.d), a); wk.append(c);
+    });
+
+    const exp = $("#expList"), more = $("#expMore"); exp.replaceChildren(); more.replaceChildren();
+    EXP.forEach(e => { const x = e[lang]; (e.top ? exp : more).append(entry(x.when, x.t, x.w, x.b, x.k)); });
+    expLabel();
 
     const sk = $("#skillList"); sk.replaceChildren();
     SKILLS[lang].forEach(([a, b]) => sk.append(el("dt", null, a), el("dd", null, b)));
@@ -161,6 +169,12 @@
 
     $("#updated").textContent = fmtDate(UPDATED) + ".";
     spy();
+  }
+
+  function expLabel() {
+    const open = !$("#expMore").hidden;
+    $("#expBtn").textContent = open ? T[lang].exp.less : T[lang].exp.more(EXP.filter(e => !e.top).length);
+    $("#expBtn").setAttribute("aria-expanded", String(open));
   }
 
   function spy() {
@@ -182,6 +196,7 @@
     try { await navigator.clipboard.writeText($("#mail").textContent); b.textContent = T[lang].contact.copied; setTimeout(() => (b.textContent = T[lang].contact.copy), 1600); }
     catch (e) { const r = document.createRange(); r.selectNodeContents($("#mail")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
   });
+  $("#expBtn").addEventListener("click", () => { $("#expMore").hidden = !$("#expMore").hidden; expLabel(); });
   $("#lbClose").addEventListener("click", () => $("#lightbox").close());
   $("#lbPrev").addEventListener("click", () => step(-1));
   $("#lbNext").addEventListener("click", () => step(1));

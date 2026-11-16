@@ -6,9 +6,13 @@
 <title>Etienne Borel SOH BAYECK | Biochemist, parasitology and drug discovery</title>
 <meta name="description" content="Etienne Borel SOH BAYECK, MSc Biochemistry (University of Yaoundé 1). Education, research, publications, certificates and contact.">
 <meta property="og:title" content="Etienne Borel SOH BAYECK">
-<meta property="og:description" content="Biochemist working on neglected tropical diseases, where computational prioritisation meets experimental validation.">
+<meta property="og:description" content="Biochemist | Molecular biology and drug discovery for neglected tropical diseases">
 <meta property="og:type" content="profile">
-<meta property="og:image" content="assets/portrait.jpg">
+<meta property="og:url" content="https://bayeckborel.github.io/">
+<meta property="og:image" content="https://bayeckborel.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +64,8 @@
 <main id="main">
   <section id="about"><h2 data-i18n="nav.about"></h2><p class="prose" data-i18n="about.text"></p></section>
 
+  <section id="work"><h2 data-i18n="work.title"></h2><div class="work-grid" id="workGrid"></div></section>
+
   <section id="education">
     <h2 data-i18n="nav.education"></h2>
     <div class="edu-grid">
@@ -90,7 +96,9 @@
 
   <section id="publications"><h2 data-i18n="nav.publications"></h2><div id="pubList"></div></section>
 
-  <section id="experience"><h2 data-i18n="nav.experience"></h2><div id="expList" class="timeline"></div></section>
+  <section id="experience"><h2 data-i18n="nav.experience"></h2><div id="expList" class="timeline"></div>
+    <div id="expMore" class="timeline more" hidden></div>
+    <p class="exp-toggle"><button type="button" class="chip" id="expBtn" aria-expanded="false" aria-controls="expMore"></button></p></section>
 
   <section id="skills"><h2 data-i18n="nav.skills"></h2><dl id="skillList" class="skills"></dl></section>
 
