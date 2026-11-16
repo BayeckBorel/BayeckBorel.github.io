@@ -9,6 +9,7 @@
 <meta property="og:description" content="Biochemist (MSc). Parasitology, immunology and drug discovery for neglected tropical diseases.">
 <meta property="og:type" content="profile">
 <meta property="og:image" content="assets/portrait.jpg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
@@ -27,7 +28,7 @@
 
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#home">E. B. Soh Bayeck</a>
+    <a class="brand" href="#home"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor"/><path d="M6 24 L11 17 L16 15.5 L21 15 L26 8" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="8" r="2.6" fill="var(--bg)"/></svg><span>E. B. Soh Bayeck</span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" data-i18n="menu">Menu</button>
     <nav id="nav" aria-label="Sections"></nav>
     <div class="tools">
@@ -87,6 +88,11 @@
   <section id="certificates">
     <h2 data-i18n="nav.certificates"></h2>
     <p class="prose" data-i18n="cert.intro"></p>
+    <figure class="chart-card train-card">
+      <figcaption><strong data-i18n="cert.chartTitle"></strong></figcaption>
+      <div id="trainChart" role="img"></div>
+      <ul class="legend" id="trainLegend"></ul>
+    </figure>
     <div class="filters" id="filters" role="group" aria-label="Filter"></div>
     <p class="small" id="certCount" aria-live="polite"></p>
     <div class="cert-grid" id="certGrid"></div>
@@ -97,7 +103,7 @@
   <section id="referees">
     <h2 data-i18n="nav.referees"></h2>
     <div class="ref-grid" id="refList"></div>
-    <p class="small" data-i18n="ref.note"></p>
+    <p class="prose" data-i18n="ref.note"></p>
   </section>
 
   <section id="contact">
@@ -110,6 +116,19 @@
       <p><span class="label">LinkedIn</span> <a href="https://www.linkedin.com/in/etienne-borel-soh-bayeck-357811243" target="_blank" rel="noopener">linkedin.com/in/etienne-borel-soh-bayeck-357811243</a></p>
       <p><span class="label" data-i18n="contact.addr"></span> <span data-i18n="contact.addrVal"></span></p>
     </div>
+    <form id="visitorForm" class="vform" hidden novalidate>
+      <h3 data-i18n="form.title"></h3>
+      <p class="small" data-i18n="form.intro"></p>
+      <div class="vgrid">
+        <label for="f-name"><span data-i18n="form.name"></span><input id="f-name" name="name" autocomplete="name" required></label>
+        <label for="f-email"><span data-i18n="form.email"></span><input id="f-email" name="email" type="email" autocomplete="email" required></label>
+        <label for="f-org"><span data-i18n="form.org"></span><input id="f-org" name="organisation" autocomplete="organization"></label>
+        <label for="f-country"><span data-i18n="form.country"></span><input id="f-country" name="country" autocomplete="country-name"></label>
+        <label for="f-reason"><span data-i18n="form.reason"></span><select id="f-reason" name="reason"></select></label>
+        <label for="f-msg" class="wide"><span data-i18n="form.msg"></span><textarea id="f-msg" name="message" rows="4"></textarea></label>
+      </div>
+      <p class="vsend"><button class="btn" type="submit" id="f-send" data-i18n="form.send"></button><span id="f-status" role="status"></span></p>
+    </form>
   </section>
 </main>
 

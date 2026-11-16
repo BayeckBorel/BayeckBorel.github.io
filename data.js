@@ -1,6 +1,12 @@
 /* Contenu du site. Pour ajouter un certificat : copier une ligne de CERTS, mettre l'image dans assets/certs/, donner son nom dans imgs. */
 const UPDATED = "2026-11-16";
 
+/* Reglages a remplir quand les comptes existent. Vide = la fonction reste eteinte.
+   GOATCOUNTER : le nom choisi sur goatcounter.com (pour monsite.goatcounter.com, ecrire "monsite").
+   FORM_ENDPOINT : l'adresse donnee par formspree.io, du type "https://formspree.io/f/xxxxxxxx". */
+const GOATCOUNTER = "";
+const FORM_ENDPOINT = "";
+
 const T = {
   en: {
     skip: "Skip to content", menu: "Menu",
@@ -11,7 +17,7 @@ const T = {
       lede: "I am a biochemist trained at the University of Yaoundé 1, Cameroon. I work on schistosomiasis, at the bench and with data, and I am preparing doctoral applications for 2027.",
       contact: "Contact me"
     },
-    facts: [["3.56/4", "final-year GPA of the MSc, ranked first in the specialisation"], ["3.28/4", "cumulative GPA of the MSc"], ["1", "co-authored paper, Frontiers in Immunology, 2026"]],
+    facts: [["3.56/4", "final-year GPA of the MSc, ranked first in the specialisation"], ["2.09 → 3.56", "annual GPA from the first year of the BSc to the last year of the MSc"], ["60/60", "credits earned in each of the five years"], ["1", "co-authored paper, Frontiers in Immunology, 2026"], ["20", "trainings and certificates"]],
     about: { text: "Biochemist (MSc in Biotechnology and Development) with expertise in molecular biology, immunology, parasitology and bioinformatics. Skilled in integrating laboratory and computational approaches to study host-parasite interactions, immunopathology, drug discovery and therapeutic responses. Highly motivated to contribute to research in infection biology, to vaccine and therapeutic development applied to neglected tropical diseases, and to other areas of molecular and biochemical research in Cameroon and elsewhere." },
     chart: {
       title: "Academic progression",
@@ -27,14 +33,19 @@ const T = {
     pubStatus: { published: "Published", prep: "In preparation" },
     conf: "Conference",
     cert: {
-      intro: "Each card shows the certificate itself. A hatched card is a training I completed whose certificate will be added later.",
-      all: "All", withDoc: "With certificate", pending: "Certificate to be added", view: "View certificate",
+      intro: "The chart counts my trainings by year and by field. Each card below opens the certificate when it is available.",
+      all: "All", withDoc: "With certificate", pending: "Training completed", view: "View certificate",
+      chartTitle: "Trainings by year and field", chartAria: (y, n) => `Stacked bar chart of trainings per year: ${y.map((v, i) => v + " " + n[i]).join(", ")}.`,
       count: (n, t) => `${n} of ${t} shown`, pages: n => `${n} pages`,
       cats: { dd: "Drug discovery and AI", lab: "Laboratory techniques", data: "Data and programming", clin: "Clinical research and quality", event: "Events and other" }
     },
     asp: { text: "I want to complete a PhD in parasitology and drug discovery. After the PhD, I intend to carry out research on neglected tropical diseases in Africa. I also remain open to other areas of drug discovery, including oncology, wherever a technique I have developed proves useful." },
-    ref: { note: "Contact details available on request." },
+    ref: { note: "References available on request." },
     contact: { email: "Email", copy: "Copy", copied: "Copied", addr: "Address", addrVal: "Department of Biochemistry, Faculty of Science, University of Yaoundé 1, P.O. Box 812, Yaoundé, Cameroon" },
+    form: { title: "Leave me your details", intro: "If you would like me to write back, fill in this form. Your details are sent to me by email and I use them only to reply to you.",
+            name: "Name", email: "Email", org: "Institution or organisation", country: "Country", reason: "Reason",
+            reasons: ["Scholarship or doctoral position", "Collaboration", "Recruitment", "Other"], msg: "Message", send: "Send",
+            sending: "Sending…", ok: "Your message was sent. Thank you.", fail: "The message could not be sent. Please write to my email address above." },
     footer: { text: "© 2026 Etienne Borel SOH BAYECK. Last updated" },
     lb: { close: "Close", prev: "Previous", next: "Next" }
   },
@@ -47,7 +58,7 @@ const T = {
       lede: "Je suis biochimiste, formé à l'Université de Yaoundé 1, au Cameroun. Je travaille sur la schistosomiase, à la paillasse et avec les données, et je prépare des candidatures doctorales pour 2027.",
       contact: "Me contacter"
     },
-    facts: [["3.56/4", "moyenne de l'année finale du Master, premier de la spécialité"], ["3.28/4", "moyenne cumulée du Master"], ["1", "article en co-auteur, Frontiers in Immunology, 2026"]],
+    facts: [["3.56/4", "moyenne de l'année finale du Master, premier de la spécialité"], ["2.09 → 3.56", "moyenne annuelle de la première année de Licence à la dernière année de Master"], ["60/60", "crédits validés à chacune des cinq années"], ["1", "article en co-auteur, Frontiers in Immunology, 2026"], ["20", "formations et certificats"]],
     about: { text: "Biochimiste (Master en Biotechnologie et Développement) avec une expertise en biologie moléculaire, immunologie, parasitologie et bio-informatique. J'associe les approches de laboratoire et les approches computationnelles pour étudier les interactions hôte-parasite, l'immunopathologie, la découverte de médicaments et les réponses thérapeutiques. Je souhaite contribuer à la recherche en biologie des infections, au développement de vaccins et de traitements contre les maladies tropicales négligées, et à d'autres domaines de la recherche moléculaire et biochimique, au Cameroun et ailleurs." },
     chart: {
       title: "Progression académique",
@@ -63,14 +74,19 @@ const T = {
     pubStatus: { published: "Publié", prep: "En préparation" },
     conf: "Conférence",
     cert: {
-      intro: "Chaque carte montre le certificat lui-même. Une carte hachurée est une formation suivie dont le certificat sera ajouté plus tard.",
-      all: "Tous", withDoc: "Avec certificat", pending: "Certificat à ajouter", view: "Voir le certificat",
+      intro: "Le graphique compte mes formations par année et par domaine. Chaque carte ci-dessous ouvre le certificat quand il est disponible.",
+      all: "Tous", withDoc: "Avec certificat", pending: "Formation suivie", view: "Voir le certificat",
+      chartTitle: "Formations par année et par domaine", chartAria: (y, n) => `Graphique en barres empilées des formations par année : ${y.map((v, i) => v + " " + n[i]).join(", ")}.`,
       count: (n, t) => `${n} sur ${t} affichés`, pages: n => `${n} pages`,
       cats: { dd: "Découverte de médicaments et IA", lab: "Techniques de laboratoire", data: "Données et programmation", clin: "Recherche clinique et qualité", event: "Événements et autres" }
     },
     asp: { text: "Je veux réaliser un doctorat en parasitologie et en découverte de médicaments. Après ce doctorat, je compte mener des recherches sur les maladies tropicales négligées en Afrique. Je reste aussi ouvert à d'autres domaines de la découverte de médicaments, y compris la cancérologie, partout où une technique que j'aurai développée sera utile." },
-    ref: { note: "Coordonnées disponibles sur demande." },
+    ref: { note: "Références disponibles sur demande." },
     contact: { email: "Courriel", copy: "Copier", copied: "Copié", addr: "Adresse", addrVal: "Département de Biochimie, Faculté des Sciences, Université de Yaoundé 1, B.P. 812, Yaoundé, Cameroun" },
+    form: { title: "Laissez-moi vos coordonnées", intro: "Si vous souhaitez que je vous réponde, remplissez ce formulaire. Vos coordonnées me sont envoyées par courriel et je m'en sers seulement pour vous répondre.",
+            name: "Nom", email: "Courriel", org: "Institution ou organisation", country: "Pays", reason: "Motif",
+            reasons: ["Bourse ou poste doctoral", "Collaboration", "Recrutement", "Autre"], msg: "Message", send: "Envoyer",
+            sending: "Envoi…", ok: "Votre message est parti. Merci.", fail: "Le message n'a pas pu partir. Écrivez-moi à l'adresse ci-dessus." },
     footer: { text: "© 2026 Etienne Borel SOH BAYECK. Dernière mise à jour" },
     lb: { close: "Fermer", prev: "Précédent", next: "Suivant" }
   }
@@ -110,8 +126,8 @@ const HONOURS = {
 };
 
 const LANGS = {
-  en: [["French", "Mother tongue"], ["English", "B2. Master's thesis written and defended in English."], ["German", "A2"]],
-  fr: [["Français", "Langue maternelle"], ["Anglais", "B2. Mémoire de Master rédigé et soutenu en anglais."], ["Allemand", "A2"]]
+  en: [["French", "Mother tongue"], ["English", "B2"], ["German", "A2"]],
+  fr: [["Français", "Langue maternelle"], ["Anglais", "B2"], ["Allemand", "A2"]]
 };
 
 const PUBS = [
@@ -120,12 +136,7 @@ const PUBS = [
     title: "Mass drug administration of praziquantel lowers the susceptibility of school-aged children to Schistosoma mansoni in endemic areas.",
     venue: "Frontiers in Immunology, 17:1746003.", doi: "10.3389/fimmu.2026.1746003",
     en: "Contribution: formal analysis, investigation, methodology, writing of the original draft.",
-    fr: "Contribution : analyse formelle, investigation, méthodologie, rédaction de la première version." },
-  { status: "prep", year: "",
-    authors: ["", "Soh Bayeck E.B.", " et al."],
-    title: "Kinase conformational state: the untested variable in antischistosomal drug discovery.",
-    venue: "", doi: "",
-    en: "Review article, first author.", fr: "Article de revue, premier auteur." }
+    fr: "Contribution : analyse formelle, investigation, méthodologie, rédaction de la première version." }
 ];
 const CONF = {
   en: "2023 · 1st Schistosomiasis Awareness Day, IMPM/MINRESI, Yaoundé. Oral presentation: mass drug administration of praziquantel lowers susceptibility to Schistosoma mansoni in endemic areas.",
@@ -223,11 +234,4 @@ const CERTS = [
     en: "Certificate of participation.", fr: "Certificat de participation.", imgs: ["comp-05.jpg"] }
 ];
 
-const REFS = [
-  { name: "Dr Brice Owona Ayissi",
-    en: { role: "Thesis supervisor", d: "Senior Lecturer in Biochemistry, University of Yaoundé 1, and Research Scientist, Medical University of South Carolina (MUSC)." },
-    fr: { role: "Directeur de mémoire", d: "Chargé de cours en biochimie, Université de Yaoundé 1, et chercheur à la Medical University of South Carolina (MUSC)." } },
-  { name: "Prof. Frédéric Nico Njayou",
-    en: { role: "Head of department", d: "Full Professor and Head of the Department of Biochemistry, University of Yaoundé 1." },
-    fr: { role: "Chef de département", d: "Professeur titulaire et chef du Département de Biochimie, Université de Yaoundé 1." } }
-];
+const REFS = [];

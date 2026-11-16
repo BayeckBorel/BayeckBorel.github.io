@@ -48,6 +48,31 @@
     const c = $("#chart"); c.replaceChildren(svg); c.setAttribute("aria-label", get("chart.aria"));
   }
 
+  function drawTrain() {
+    const cats = Object.keys(T[lang].cert.cats), years = [...new Set(CERTS.map(c => c.date.slice(0, 4)))].sort();
+    const n = years.map(y => cats.map(k => CERTS.filter(c => c.date.slice(0, 4) === y && c.cat === k).length));
+    const tot = n.map(r => r.reduce((a, b) => a + b, 0)), max = Math.max(...tot);
+    const W = 560, H = 250, L = 30, R = 10, Tp = 22, B = 30, top = Math.ceil(max / 4) * 4;
+    const NS = "http://www.w3.org/2000/svg";
+    const s = (tag, attrs, text) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+    const y = v => Tp + (H - Tp - B) * (1 - v / top), band = (W - L - R) / years.length, bw = Math.min(54, band * .6);
+    const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, "aria-hidden": "true" });
+    for (let t = 0; t <= top; t += 4) {
+      svg.append(s("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), stroke: "var(--line)", "stroke-width": 1 }));
+      svg.append(s("text", { x: L - 7, y: y(t) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--muted)" }, t));
+    }
+    years.forEach((yr, i) => {
+      const x = L + band * i + (band - bw) / 2; let acc = 0;
+      cats.forEach((k, ci) => { const v = n[i][ci]; if (!v) return;
+        svg.append(s("rect", { x, y: y(acc + v), width: bw, height: y(acc) - y(acc + v), fill: `var(--c-${k})`, stroke: "var(--surface)", "stroke-width": 1.5 })); acc += v; });
+      svg.append(s("text", { x: x + bw / 2, y: y(acc) - 6, "text-anchor": "middle", "font-size": 13, "font-weight": 600, fill: "var(--fg)" }, tot[i]));
+      svg.append(s("text", { x: x + bw / 2, y: H - 10, "text-anchor": "middle", "font-size": 12, fill: "var(--muted)" }, yr));
+    });
+    const box = $("#trainChart"); box.replaceChildren(svg); box.setAttribute("aria-label", T[lang].cert.chartAria(years, tot));
+    const lg = $("#trainLegend"); lg.replaceChildren();
+    cats.forEach(k => { const li = el("li"); const sw = el("i"); sw.style.background = `var(--c-${k})`; li.append(sw, document.createTextNode(T[lang].cert.cats[k])); lg.append(li); });
+  }
+
   function renderCerts() {
     const t = T[lang].cert, grid = $("#certGrid");
     const list = CERTS.filter(c => filter === "all" || (filter === "doc" ? c.imgs.length : c.cat === filter));
@@ -126,7 +151,10 @@
     const sk = $("#skillList"); sk.replaceChildren();
     SKILLS[lang].forEach(([a, b]) => sk.append(el("dt", null, a), el("dd", null, b)));
 
-    renderFilters(); renderCerts();
+    drawTrain(); renderFilters(); renderCerts();
+    const sel = $("#f-reason"), keep = sel.selectedIndex; sel.replaceChildren();
+    T[lang].form.reasons.forEach(r => { const o = el("option", null, r); o.value = r; sel.append(o); });
+    if (keep > 0) sel.selectedIndex = keep;
 
     const rf = $("#refList"); rf.replaceChildren();
     REFS.forEach(r => { const c = el("div", "ref"); c.append(el("p", "role", r[lang].role), el("h3", null, r.name), el("p", null, r[lang].d)); rf.append(c); });
@@ -160,6 +188,25 @@
   $("#lightbox").addEventListener("click", e => { if (e.target.id === "lightbox") e.target.close(); });
   $("#lightbox").addEventListener("keydown", e => { if (!lb.c || lb.c.imgs.length < 2) return; if (e.key === "ArrowLeft") step(-1); if (e.key === "ArrowRight") step(1); });
   addEventListener("scroll", spy, { passive: true });
+
+  if (typeof FORM_ENDPOINT === "string" && FORM_ENDPOINT) {
+    const f = $("#visitorForm"), st = $("#f-status"); f.hidden = false;
+    f.addEventListener("submit", async e => {
+      e.preventDefault();
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      const t = T[lang].form; $("#f-send").disabled = true; st.textContent = t.sending;
+      try {
+        const r = await fetch(FORM_ENDPOINT, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(f) });
+        if (!r.ok) throw new Error(String(r.status));
+        st.textContent = t.ok; f.reset();
+      } catch (err) { st.textContent = t.fail; }
+      $("#f-send").disabled = false;
+    });
+  }
+  if (typeof GOATCOUNTER === "string" && GOATCOUNTER) {
+    const g = document.createElement("script"); g.async = true; g.src = "https://gc.zgo.at/count.js";
+    g.dataset.goatcounter = `https://${GOATCOUNTER}.goatcounter.com/count`; document.head.append(g);
+  }
 
   render();
 })();
