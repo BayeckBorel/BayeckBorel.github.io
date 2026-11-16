@@ -438,3 +438,7 @@ main h2::after{background:linear-gradient(90deg,#6fb0ff,#3ddc97)}
 :root[data-theme="light"]{--motif:168,178,196}
 
 footer p{text-transform:none;letter-spacing:0;font-size:.84rem;line-height:1.6;max-width:72ch;margin:0}
+
+footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px 24px}
+footer p{max-width:none}
+.foot-kind{text-transform:uppercase;letter-spacing:.09em;font-size:.72rem;font-weight:700;color:var(--accent)}

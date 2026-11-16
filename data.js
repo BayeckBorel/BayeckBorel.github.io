@@ -54,7 +54,7 @@ const T = {
             name: "Name", email: "Email", org: "Institution or organisation", country: "Country", reason: "Reason",
             reasons: ["Scholarship or doctoral position", "Collaboration", "Recruitment", "Other"], msg: "Message", send: "Send",
             sending: "Sending…", ok: "Your message was sent. Thank you.", fail: "The message could not be sent. Please write to my email address above." },
-    footer: { text: "© 2026 Etienne Borel SOH BAYECK. This website is my academic portfolio, an online record of my education, research, publications and certificates, together with the documents that support them." },
+    footer: { text: "© 2026 Etienne Borel SOH BAYECK", kind: "Academic portfolio" },
     lb: { close: "Close", prev: "Previous", next: "Next" }
   },
   fr: {
@@ -103,7 +103,7 @@ const T = {
             name: "Nom", email: "Courriel", org: "Institution ou organisation", country: "Pays", reason: "Motif",
             reasons: ["Bourse ou poste doctoral", "Collaboration", "Recrutement", "Autre"], msg: "Message", send: "Envoyer",
             sending: "Envoi…", ok: "Votre message est parti. Merci.", fail: "Le message n'a pas pu partir. Écrivez-moi à l'adresse ci-dessus." },
-    footer: { text: "© 2026 Etienne Borel SOH BAYECK. Ce site est mon portfolio académique, un recueil en ligne de ma formation, de mes recherches, de mes publications et de mes certificats, avec les documents qui les attestent." },
+    footer: { text: "© 2026 Etienne Borel SOH BAYECK", kind: "Portfolio académique" },
     lb: { close: "Fermer", prev: "Précédent", next: "Suivant" }
   }
 };
