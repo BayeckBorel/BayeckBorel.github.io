@@ -27,7 +27,10 @@ const T = {
     },
     honoursTitle: "Honours and awards", languagesTitle: "Languages",
     research: {
-      text: "My research interests are the biology of parasitic worms and the discovery of drugs against them. During my master's thesis I studied how repeated praziquantel treatments affect the susceptibility of school-aged children to Schistosoma mansoni infection, and that work contributed to a paper published in Frontiers in Immunology in 2026. Because the treatment of schistosomiasis still relies on praziquantel, I now want to study the protein kinases of the parasite as drug targets, together with the methods that measure whether a compound binds its target inside a cell.",
+      text: "My research interests are the biology of parasitic worms and the discovery of drugs against them. Both interests come from my master's thesis on schistosomiasis in school-aged children, and that work contributed to a paper published in Frontiers in Immunology in 2026.",
+      thesisTitle: "Master's thesis in brief",
+      thesis: "The thesis was a retrospective study of samples and records from school-aged children in five public schools of Bokito, Cameroon, where Schistosoma mansoni is endemic. I compared the children who had received up to two rounds of praziquantel with those who had received more than two. The children with more than two rounds had fewer heavy infections (p = 0.01), higher haemoglobin levels (p = 0.004) and better school marks (p = 0.02), and they also had higher IgE and IgG4 levels. However, infection remained as frequent in this group as in the other (p = 0.58), and liver fibrosis was not reduced (p = 0.31). Repeated treatment therefore came with a lower parasite burden and a stronger antibody response, but it left the frequency of infection and the liver damage unchanged, which marks the limit of a control strategy that relies on praziquantel alone. Because the study was observational, these associations do not establish a causal effect.",
+      next: "That limit is the reason I now want to study the protein kinases of the parasite as drug targets, together with the methods that measure whether a compound binds its target inside a cell.",
       tags: ["Schistosomiasis", "Host-parasite immunology", "Protein kinases", "Target engagement", "Early drug discovery", "Neglected tropical diseases"]
     },
     pubStatus: { published: "Published", prep: "In preparation" },
@@ -41,7 +44,7 @@ const T = {
     },
     asp: { text: "I want to complete a PhD in parasitology and drug discovery. After the PhD, I intend to carry out research on neglected tropical diseases in Africa. I also remain open to other areas of drug discovery, including oncology, wherever a technique I have developed proves useful." },
     ref: { note: "References available on request." },
-    contact: { email: "Email", copy: "Copy", copied: "Copied", addr: "Address", addrVal: "Department of Biochemistry, Faculty of Science, University of Yaoundé 1, P.O. Box 812, Yaoundé, Cameroon" },
+    contact: { write: "Write me an email", email: "Email", copy: "Copy", copied: "Copied", addr: "Address", addrVal: "Department of Biochemistry, Faculty of Science, University of Yaoundé 1, P.O. Box 812, Yaoundé, Cameroon" },
     form: { title: "Leave me your details", intro: "If you would like me to write back, fill in this form. Your details are sent to me by email and I use them only to reply to you.",
             name: "Name", email: "Email", org: "Institution or organisation", country: "Country", reason: "Reason",
             reasons: ["Scholarship or doctoral position", "Collaboration", "Recruitment", "Other"], msg: "Message", send: "Send",
@@ -68,7 +71,10 @@ const T = {
     },
     honoursTitle: "Distinctions", languagesTitle: "Langues",
     research: {
-      text: "Mes intérêts de recherche sont la biologie des vers parasites et la découverte de médicaments contre eux. Pendant mon mémoire de Master, j'ai étudié comment les traitements répétés au praziquantel modifient la susceptibilité des enfants d'âge scolaire à l'infection par Schistosoma mansoni, et ce travail a contribué à un article publié dans Frontiers in Immunology en 2026. Parce que le traitement de la schistosomiase repose encore sur le praziquantel, je veux maintenant étudier les protéines kinases du parasite comme cibles thérapeutiques, avec les méthodes qui mesurent si un composé se lie à sa cible dans une cellule.",
+      text: "Mes intérêts de recherche sont la biologie des vers parasites et la découverte de médicaments contre eux. Ces deux intérêts viennent de mon mémoire de Master sur la schistosomiase chez les enfants d'âge scolaire, et ce travail a contribué à un article publié dans Frontiers in Immunology en 2026.",
+      thesisTitle: "Le mémoire de Master en bref",
+      thesis: "Le mémoire était une étude rétrospective d'échantillons et de données d'enfants d'âge scolaire de cinq écoles publiques de Bokito, au Cameroun, où Schistosoma mansoni est endémique. J'ai comparé les enfants qui avaient reçu jusqu'à deux tours de praziquantel avec ceux qui en avaient reçu plus de deux. Les enfants traités plus de deux fois avaient moins d'infections lourdes (p = 0.01), une hémoglobine plus élevée (p = 0.004) et de meilleures notes scolaires (p = 0.02), et ils avaient aussi des taux d'IgE et d'IgG4 plus élevés. Cependant, l'infection restait aussi fréquente dans ce groupe que dans l'autre (p = 0.58), et la fibrose hépatique n'était pas réduite (p = 0.31). Les traitements répétés s'accompagnaient donc d'une charge parasitaire plus faible et d'une réponse en anticorps plus forte, mais ils laissaient inchangées la fréquence de l'infection et l'atteinte du foie, ce qui marque la limite d'une stratégie de lutte fondée sur le seul praziquantel. Comme l'étude était observationnelle, ces associations n'établissent pas un effet causal.",
+      next: "Cette limite est la raison pour laquelle je veux maintenant étudier les protéines kinases du parasite comme cibles thérapeutiques, avec les méthodes qui mesurent si un composé se lie à sa cible dans une cellule.",
       tags: ["Schistosomiase", "Immunologie hôte-parasite", "Protéines kinases", "Engagement de cible", "Découverte précoce de médicaments", "Maladies tropicales négligées"]
     },
     pubStatus: { published: "Publié", prep: "En préparation" },
@@ -82,7 +88,7 @@ const T = {
     },
     asp: { text: "Je veux réaliser un doctorat en parasitologie et en découverte de médicaments. Après ce doctorat, je compte mener des recherches sur les maladies tropicales négligées en Afrique. Je reste aussi ouvert à d'autres domaines de la découverte de médicaments, y compris la cancérologie, partout où une technique que j'aurai développée sera utile." },
     ref: { note: "Références disponibles sur demande." },
-    contact: { email: "Courriel", copy: "Copier", copied: "Copié", addr: "Adresse", addrVal: "Département de Biochimie, Faculté des Sciences, Université de Yaoundé 1, B.P. 812, Yaoundé, Cameroun" },
+    contact: { write: "M'écrire un courriel", email: "Courriel", copy: "Copier", copied: "Copié", addr: "Adresse", addrVal: "Département de Biochimie, Faculté des Sciences, Université de Yaoundé 1, B.P. 812, Yaoundé, Cameroun" },
     form: { title: "Laissez-moi vos coordonnées", intro: "Si vous souhaitez que je vous réponde, remplissez ce formulaire. Vos coordonnées me sont envoyées par courriel et je m'en sers seulement pour vous répondre.",
             name: "Nom", email: "Courriel", org: "Institution ou organisation", country: "Pays", reason: "Motif",
             reasons: ["Bourse ou poste doctoral", "Collaboration", "Recrutement", "Autre"], msg: "Message", send: "Envoyer",

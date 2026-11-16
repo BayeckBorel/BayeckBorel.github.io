@@ -4,7 +4,7 @@
   const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
   const SECTIONS = ["about", "education", "research", "publications", "experience", "skills", "certificates", "aspirations", "referees", "contact"];
 
-  let lang = store.get("lang") || ((navigator.language || "en").toLowerCase().startsWith("fr") ? "fr" : "en");
+  let lang = "en"; /* le site s'ouvre toujours en anglais ; le bouton de langue est cache */
   let filter = "all";
   const get = (path) => path.split(".").reduce((o, k) => (o ? o[k] : undefined), T[lang]);
 
@@ -209,4 +209,40 @@
   }
 
   render();
+
+  /* Reseau anime du bandeau : des points relies comme les atomes d'une molecule. */
+  (function () {
+    const cv = $("#net"); if (!cv || !cv.getContext) return;
+    const ctx = cv.getContext("2d"), band = cv.parentElement;
+    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let W = 0, H = 0, pts = [], raf = 0, vis = true;
+    function size() {
+      const d = Math.min(devicePixelRatio || 1, 2); W = band.clientWidth; H = band.clientHeight;
+      cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+      const n = Math.max(18, Math.min(70, Math.round(W * H / 16000)));
+      pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28, r: Math.random() < .2 ? 3.2 : 1.8 }));
+    }
+    function frame() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of pts) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+      for (let i = 0; i < pts.length; i++) for (let k = i + 1; k < pts.length; k++) {
+        const a = pts[i], b = pts[k], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 130) { ctx.strokeStyle = `rgba(190,235,240,${(1 - d / 130) * .32})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      for (const p of pts) { ctx.fillStyle = p.r > 3 ? "rgba(150,235,220,.85)" : "rgba(255,255,255,.6)"; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); }
+      if (!still && vis) raf = requestAnimationFrame(frame);
+    }
+    function restart() { cancelAnimationFrame(raf); size(); frame(); }
+    if ("ResizeObserver" in window) new ResizeObserver(restart).observe(band); else { restart(); addEventListener("resize", restart); }
+    if ("IntersectionObserver" in window) new IntersectionObserver(e => {
+      const v = e[0].isIntersecting; if (v && !vis) { vis = true; cancelAnimationFrame(raf); frame(); } else vis = v;
+    }).observe(band);
+  })();
+
+  /* Apparition douce des rubriques au defilement. */
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll("main section").forEach(sec => { if (sec.getBoundingClientRect().top > innerHeight * .9) { sec.classList.add("reveal"); io.observe(sec); } });
+    setTimeout(() => document.querySelectorAll(".reveal").forEach(x => x.classList.add("in")), 4000);
+  }
 })();
