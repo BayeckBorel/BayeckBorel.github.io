@@ -211,3 +211,5 @@ nav a{white-space:nowrap;padding:6px 7px}
   .hero-band .facts{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.hero-band .facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .facts:empty{display:none}
+.eyebrow:empty{display:none}
+.hero-band .lede{font-size:1.2rem;font-weight:500;max-width:60ch}

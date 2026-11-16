@@ -13,8 +13,8 @@ const T = {
     nav: { about: "About", education: "Education", research: "Research", publications: "Publications", experience: "Experience",
            skills: "Skills", certificates: "Certificates", aspirations: "Aspirations", referees: "Referees", contact: "Contact" },
     hero: {
-      eyebrow: "Biochemist (MSc) · Parasitology · Drug discovery",
-      lede: "Biochemist working on neglected tropical diseases, at the point where computational prioritisation meets experimental validation.",
+      eyebrow: "",
+      lede: "Biochemist | Molecular biology and drug discovery for neglected tropical diseases | Aspiring PhD candidate",
       contact: "Contact me"
     },
     facts: [],
@@ -57,8 +57,8 @@ const T = {
     nav: { about: "Présentation", education: "Formation", research: "Recherche", publications: "Publications", experience: "Expérience",
            skills: "Compétences", certificates: "Certificats", aspirations: "Aspirations", referees: "Référents", contact: "Contact" },
     hero: {
-      eyebrow: "Biochimiste (MSc) · Parasitologie · Découverte de médicaments",
-      lede: "Biochimiste travaillant sur les maladies tropicales négligées, là où la priorisation computationnelle rencontre la validation expérimentale.",
+      eyebrow: "",
+      lede: "Biochimiste | Biologie moléculaire et découverte de médicaments contre les maladies tropicales négligées | Futur doctorant",
       contact: "Me contacter"
     },
     facts: [],
