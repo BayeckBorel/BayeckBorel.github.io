@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etienne Borel SOH BAYECK | Biochemist, parasitology and drug discovery</title>
+<meta name="description" content="Etienne Borel SOH BAYECK, MSc Biochemistry (University of Yaoundé 1). Education, research, publications, certificates and contact.">
+<meta property="og:title" content="Etienne Borel SOH BAYECK">
+<meta property="og:description" content="Biochemist (MSc). Parasitology, immunology and drug discovery for neglected tropical diseases.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="assets/portrait.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script>
+  (function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Etienne Borel SOH BAYECK","jobTitle":"Biochemist (MSc)",
+ "alumniOf":{"@type":"CollegeOrUniversity","name":"University of Yaoundé 1"},
+ "sameAs":["https://orcid.org/0009-0008-0954-5281","https://www.linkedin.com/in/etienne-borel-soh-bayeck-357811243"]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#home">E. B. Soh Bayeck</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" data-i18n="menu">Menu</button>
+    <nav id="nav" aria-label="Sections"></nav>
+    <div class="tools">
+      <button id="langBtn" class="tool" aria-label="Changer de langue / Switch language">FR</button>
+      <button id="themeBtn" class="tool" aria-label="Light or dark mode"><span id="themeIcon" aria-hidden="true">◐</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+      <h1>Etienne Borel <span class="nowrap">SOH BAYECK</span></h1>
+      <p class="lede" data-i18n="hero.lede"></p>
+      <ul class="facts" id="facts"></ul>
+      <p class="links">
+        <a class="btn" href="#contact" data-i18n="hero.contact"></a>
+        <a class="btn ghost" href="https://orcid.org/0009-0008-0954-5281" target="_blank" rel="noopener">ORCID</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/etienne-borel-soh-bayeck-357811243" target="_blank" rel="noopener">LinkedIn</a>
+      </p>
+    </div>
+    <img class="portrait" src="assets/portrait.jpg" width="640" height="800" alt="Portrait of Etienne Borel SOH BAYECK">
+  </section>
+
+  <section id="about"><h2 data-i18n="nav.about"></h2><p class="prose" data-i18n="about.text"></p></section>
+
+  <section id="education">
+    <h2 data-i18n="nav.education"></h2>
+    <div class="edu-grid">
+      <div id="eduList" class="timeline"></div>
+      <figure class="chart-card">
+        <figcaption>
+          <strong data-i18n="chart.title"></strong>
+          <span data-i18n="chart.sub"></span>
+        </figcaption>
+        <div id="chart" role="img"></div>
+        <p class="small" data-i18n="chart.note"></p>
+      </figure>
+    </div>
+    <div id="honours"></div>
+    <div id="languages"></div>
+  </section>
+
+  <section id="research">
+    <h2 data-i18n="nav.research"></h2>
+    <p class="prose" data-i18n="research.text"></p>
+    <ul class="tags" id="researchTags"></ul>
+  </section>
+
+  <section id="publications"><h2 data-i18n="nav.publications"></h2><div id="pubList"></div></section>
+
+  <section id="experience"><h2 data-i18n="nav.experience"></h2><div id="expList" class="timeline"></div></section>
+
+  <section id="skills"><h2 data-i18n="nav.skills"></h2><dl id="skillList" class="skills"></dl></section>
+
+  <section id="certificates">
+    <h2 data-i18n="nav.certificates"></h2>
+    <p class="prose" data-i18n="cert.intro"></p>
+    <div class="filters" id="filters" role="group" aria-label="Filter"></div>
+    <p class="small" id="certCount" aria-live="polite"></p>
+    <div class="cert-grid" id="certGrid"></div>
+  </section>
+
+  <section id="aspirations"><h2 data-i18n="nav.aspirations"></h2><p class="prose" data-i18n="asp.text"></p></section>
+
+  <section id="referees">
+    <h2 data-i18n="nav.referees"></h2>
+    <div class="ref-grid" id="refList"></div>
+    <p class="small" data-i18n="ref.note"></p>
+  </section>
+
+  <section id="contact">
+    <h2 data-i18n="nav.contact"></h2>
+    <div class="contact">
+      <p><span class="label" data-i18n="contact.email"></span>
+        <a id="mail" href="mailto:etienne.soh@facsciences-uy1.cm">etienne.soh@facsciences-uy1.cm</a>
+        <button class="copy" id="copyMail" data-i18n="contact.copy"></button></p>
+      <p><span class="label">ORCID</span> <a href="https://orcid.org/0009-0008-0954-5281" target="_blank" rel="noopener">0009-0008-0954-5281</a></p>
+      <p><span class="label">LinkedIn</span> <a href="https://www.linkedin.com/in/etienne-borel-soh-bayeck-357811243" target="_blank" rel="noopener">linkedin.com/in/etienne-borel-soh-bayeck-357811243</a></p>
+      <p><span class="label" data-i18n="contact.addr"></span> <span data-i18n="contact.addrVal"></span></p>
+    </div>
+  </section>
+</main>
+
+<footer><p><span data-i18n="footer.text"></span> <span id="updated"></span></p></footer>
+
+<dialog id="lightbox" aria-label="Certificate">
+  <div class="lb-bar">
+    <span id="lbTitle"></span>
+    <button id="lbClose" data-i18n="lb.close"></button>
+  </div>
+  <img id="lbImg" alt="">
+  <div class="lb-nav">
+    <button id="lbPrev" data-i18n="lb.prev"></button>
+    <span id="lbPos"></span>
+    <button id="lbNext" data-i18n="lb.next"></button>
+  </div>
+</dialog>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

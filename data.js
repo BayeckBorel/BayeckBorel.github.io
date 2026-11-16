@@ -1,0 +1,231 @@
+/* Contenu du site. Pour ajouter un certificat : copier une ligne de CERTS, mettre l'image dans assets/certs/, donner son nom dans imgs. */
+const UPDATED = "2026-11-16";
+
+const T = {
+  en: {
+    skip: "Skip to content", menu: "Menu",
+    nav: { about: "About", education: "Education", research: "Research", publications: "Publications", experience: "Experience",
+           skills: "Skills", certificates: "Certificates", aspirations: "Aspirations", referees: "Referees", contact: "Contact" },
+    hero: {
+      eyebrow: "Biochemist (MSc) · Parasitology · Drug discovery",
+      lede: "I am a biochemist trained at the University of Yaoundé 1, Cameroon. I work on schistosomiasis, at the bench and with data, and I am preparing doctoral applications for 2027.",
+      contact: "Contact me"
+    },
+    facts: [["3.56/4", "final-year GPA of the MSc, ranked first in the specialisation"], ["3.28/4", "cumulative GPA of the MSc"], ["1", "co-authored paper, Frontiers in Immunology, 2026"]],
+    about: { text: "Biochemist (MSc in Biotechnology and Development) with expertise in molecular biology, immunology, parasitology and bioinformatics. Skilled in integrating laboratory and computational approaches to study host-parasite interactions, immunopathology, drug discovery and therapeutic responses. Highly motivated to contribute to research in infection biology, to vaccine and therapeutic development applied to neglected tropical diseases, and to other areas of molecular and biochemical research in Cameroon and elsewhere." },
+    chart: {
+      title: "Academic progression",
+      sub: "Grade point average on a 4-point scale, University of Yaoundé 1",
+      note: "The three values come from my degree records. The final-year value is part of the MSc and is shown separately because it is the most recent year.",
+      aria: "Line chart of grade point average: BSc cumulative 2.60, MSc cumulative 3.28, MSc final year 3.56, on a 4-point scale."
+    },
+    honoursTitle: "Honours and awards", languagesTitle: "Languages",
+    research: {
+      text: "My research interests are the biology of parasitic worms and the discovery of drugs against them. During my master's thesis I studied how repeated praziquantel treatments affect the susceptibility of school-aged children to Schistosoma mansoni infection, and that work contributed to a paper published in Frontiers in Immunology in 2026. Because the treatment of schistosomiasis still relies on praziquantel, I now want to study the protein kinases of the parasite as drug targets, together with the methods that measure whether a compound binds its target inside a cell.",
+      tags: ["Schistosomiasis", "Host-parasite immunology", "Protein kinases", "Target engagement", "Early drug discovery", "Neglected tropical diseases"]
+    },
+    pubStatus: { published: "Published", prep: "In preparation" },
+    conf: "Conference",
+    cert: {
+      intro: "Each card shows the certificate itself. A hatched card is a training I completed whose certificate will be added later.",
+      all: "All", withDoc: "With certificate", pending: "Certificate to be added", view: "View certificate",
+      count: (n, t) => `${n} of ${t} shown`, pages: n => `${n} pages`,
+      cats: { dd: "Drug discovery and AI", lab: "Laboratory techniques", data: "Data and programming", clin: "Clinical research and quality", event: "Events and other" }
+    },
+    asp: { text: "I want to complete a PhD in parasitology and drug discovery. After the PhD, I intend to carry out research on neglected tropical diseases in Africa. I also remain open to other areas of drug discovery, including oncology, wherever a technique I have developed proves useful." },
+    ref: { note: "Contact details available on request." },
+    contact: { email: "Email", copy: "Copy", copied: "Copied", addr: "Address", addrVal: "Department of Biochemistry, Faculty of Science, University of Yaoundé 1, P.O. Box 812, Yaoundé, Cameroon" },
+    footer: { text: "© 2026 Etienne Borel SOH BAYECK. Last updated" },
+    lb: { close: "Close", prev: "Previous", next: "Next" }
+  },
+  fr: {
+    skip: "Aller au contenu", menu: "Menu",
+    nav: { about: "Présentation", education: "Formation", research: "Recherche", publications: "Publications", experience: "Expérience",
+           skills: "Compétences", certificates: "Certificats", aspirations: "Aspirations", referees: "Référents", contact: "Contact" },
+    hero: {
+      eyebrow: "Biochimiste (MSc) · Parasitologie · Découverte de médicaments",
+      lede: "Je suis biochimiste, formé à l'Université de Yaoundé 1, au Cameroun. Je travaille sur la schistosomiase, à la paillasse et avec les données, et je prépare des candidatures doctorales pour 2027.",
+      contact: "Me contacter"
+    },
+    facts: [["3.56/4", "moyenne de l'année finale du Master, premier de la spécialité"], ["3.28/4", "moyenne cumulée du Master"], ["1", "article en co-auteur, Frontiers in Immunology, 2026"]],
+    about: { text: "Biochimiste (Master en Biotechnologie et Développement) avec une expertise en biologie moléculaire, immunologie, parasitologie et bio-informatique. J'associe les approches de laboratoire et les approches computationnelles pour étudier les interactions hôte-parasite, l'immunopathologie, la découverte de médicaments et les réponses thérapeutiques. Je souhaite contribuer à la recherche en biologie des infections, au développement de vaccins et de traitements contre les maladies tropicales négligées, et à d'autres domaines de la recherche moléculaire et biochimique, au Cameroun et ailleurs." },
+    chart: {
+      title: "Progression académique",
+      sub: "Moyenne sur une échelle de 4 points, Université de Yaoundé 1",
+      note: "Les trois valeurs viennent de mes relevés de diplôme. La valeur de l'année finale fait partie du Master et elle est montrée à part parce que c'est l'année la plus récente.",
+      aria: "Courbe de la moyenne : Licence cumulée 2.60, Master cumulé 3.28, année finale du Master 3.56, sur une échelle de 4 points."
+    },
+    honoursTitle: "Distinctions", languagesTitle: "Langues",
+    research: {
+      text: "Mes intérêts de recherche sont la biologie des vers parasites et la découverte de médicaments contre eux. Pendant mon mémoire de Master, j'ai étudié comment les traitements répétés au praziquantel modifient la susceptibilité des enfants d'âge scolaire à l'infection par Schistosoma mansoni, et ce travail a contribué à un article publié dans Frontiers in Immunology en 2026. Parce que le traitement de la schistosomiase repose encore sur le praziquantel, je veux maintenant étudier les protéines kinases du parasite comme cibles thérapeutiques, avec les méthodes qui mesurent si un composé se lie à sa cible dans une cellule.",
+      tags: ["Schistosomiase", "Immunologie hôte-parasite", "Protéines kinases", "Engagement de cible", "Découverte précoce de médicaments", "Maladies tropicales négligées"]
+    },
+    pubStatus: { published: "Publié", prep: "En préparation" },
+    conf: "Conférence",
+    cert: {
+      intro: "Chaque carte montre le certificat lui-même. Une carte hachurée est une formation suivie dont le certificat sera ajouté plus tard.",
+      all: "Tous", withDoc: "Avec certificat", pending: "Certificat à ajouter", view: "Voir le certificat",
+      count: (n, t) => `${n} sur ${t} affichés`, pages: n => `${n} pages`,
+      cats: { dd: "Découverte de médicaments et IA", lab: "Techniques de laboratoire", data: "Données et programmation", clin: "Recherche clinique et qualité", event: "Événements et autres" }
+    },
+    asp: { text: "Je veux réaliser un doctorat en parasitologie et en découverte de médicaments. Après ce doctorat, je compte mener des recherches sur les maladies tropicales négligées en Afrique. Je reste aussi ouvert à d'autres domaines de la découverte de médicaments, y compris la cancérologie, partout où une technique que j'aurai développée sera utile." },
+    ref: { note: "Coordonnées disponibles sur demande." },
+    contact: { email: "Courriel", copy: "Copier", copied: "Copié", addr: "Adresse", addrVal: "Département de Biochimie, Faculté des Sciences, Université de Yaoundé 1, B.P. 812, Yaoundé, Cameroun" },
+    footer: { text: "© 2026 Etienne Borel SOH BAYECK. Dernière mise à jour" },
+    lb: { close: "Fermer", prev: "Précédent", next: "Suivant" }
+  }
+};
+
+/* Points de la courbe. Pour une courbe année par année, remplacer par cinq points (L1, L2, L3, M1, M2). */
+const GPA = [
+  { v: 2.60, en: ["BSc", "cumulative", "2018 - 2021"], fr: ["Licence", "cumulée", "2018 - 2021"] },
+  { v: 3.28, en: ["MSc", "cumulative", "2021 - 2024"], fr: ["Master", "cumulé", "2021 - 2024"] },
+  { v: 3.56, en: ["MSc", "final year", "17.8/20"], fr: ["Master", "année finale", "17.8/20"] }
+];
+
+const EDU = [
+  { when: "2021 - 2024",
+    en: { t: "M.Sc. Biochemistry (Biotechnology and Development)", w: "University of Yaoundé 1, Faculty of Science, Cameroon · EQF level 7",
+          b: ["Cumulative GPA 3.28/4. Final-year GPA 3.56/4 (17.8/20), ranked first in the specialisation.",
+              "Thesis: effect of repeated praziquantel treatments on school-aged children's susceptibility to Schistosoma mansoni infection, immunopathology and cognitive impairment. Written and defended in English.",
+              "Main subjects: molecular biology, immunology, parasitology, enzymology, biostatistics."] },
+    fr: { t: "Master en Biochimie (Biotechnologie et Développement)", w: "Université de Yaoundé 1, Faculté des Sciences, Cameroun · niveau CEC 7",
+          b: ["Moyenne cumulée 3.28/4. Moyenne de l'année finale 3.56/4 (17.8/20), premier de la spécialité.",
+              "Mémoire : effet des traitements répétés au praziquantel sur la susceptibilité des enfants d'âge scolaire à l'infection par Schistosoma mansoni, l'immunopathologie et les troubles cognitifs. Rédigé et soutenu en anglais.",
+              "Matières principales : biologie moléculaire, immunologie, parasitologie, enzymologie, biostatistique."] } },
+  { when: "2018 - 2021",
+    en: { t: "B.Sc. Biosciences (Biochemistry)", w: "University of Yaoundé 1, Faculty of Science, Cameroon · EQF level 6", b: ["Cumulative GPA 2.60/4."] },
+    fr: { t: "Licence en Biosciences (Biochimie)", w: "Université de Yaoundé 1, Faculté des Sciences, Cameroun · niveau CEC 6", b: ["Moyenne cumulée 2.60/4."] } },
+  { when: "2017 - 2018",
+    en: { t: "Baccalauréat D (science track)", w: "Bilingual High School of Makak, Cameroon · EQF level 4", b: ["Grade 11.50/20."] },
+    fr: { t: "Baccalauréat D (série scientifique)", w: "Lycée Bilingue de Makak, Cameroun · niveau CEC 4", b: ["Moyenne 11.50/20."] } }
+];
+
+const HONOURS = {
+  when: "2020 - 2025",
+  en: { t: "Paul Biya Academic Excellence Grant", w: "Government of Cameroon", b: "Given to every student with an average above 12/20 (GPA 2.4/4) who passes all 12 course units (60 credits) without a resit." },
+  fr: { t: "Prime d'excellence académique Paul Biya", w: "Gouvernement du Cameroun", b: "Attribuée à tout étudiant dont la moyenne dépasse 12/20 (2.4/4) et qui valide les 12 unités d'enseignement (60 crédits) sans rattrapage." }
+};
+
+const LANGS = {
+  en: [["French", "Mother tongue"], ["English", "Master's thesis written and defended in English. Assessed by the onSET test (g.a.s.t. e.V., 3 June 2026), with an attestation from the Department of Bilingual Studies, University of Yaoundé 1."], ["German", "A2"]],
+  fr: [["Français", "Langue maternelle"], ["Anglais", "Mémoire de Master rédigé et soutenu en anglais. Niveau évalué par le test onSET (g.a.s.t. e.V., 3 juin 2026), avec une attestation du Département d'Études Bilingues de l'Université de Yaoundé 1."], ["Allemand", "A2"]]
+};
+
+const PUBS = [
+  { status: "published", year: "2026",
+    authors: ["Nono J.K., Bitye Zambo B.M., Kameni Poumeni M., ", "Soh Bayeck E.B.", ", Meyo Kamguia L., Noubissi Fotseu M.M., Owona Ayissi V.B., Spangenberg T., Demarta-Gatsi C. (2026)."],
+    title: "Mass drug administration of praziquantel lowers the susceptibility of school-aged children to Schistosoma mansoni in endemic areas.",
+    venue: "Frontiers in Immunology, 17:1746003.", doi: "10.3389/fimmu.2026.1746003",
+    en: "Contribution: formal analysis, investigation, methodology, writing of the original draft.",
+    fr: "Contribution : analyse formelle, investigation, méthodologie, rédaction de la première version." },
+  { status: "prep", year: "",
+    authors: ["", "Soh Bayeck E.B.", " et al."],
+    title: "Kinase conformational state: the untested variable in antischistosomal drug discovery.",
+    venue: "", doi: "",
+    en: "Review article, first author.", fr: "Article de revue, premier auteur." }
+];
+const CONF = {
+  en: "2023 · 1st Schistosomiasis Awareness Day, IMPM/MINRESI, Yaoundé. Oral presentation: mass drug administration of praziquantel lowers susceptibility to Schistosoma mansoni in endemic areas.",
+  fr: "2023 · 1re Journée de sensibilisation à la schistosomiase, IMPM/MINRESI, Yaoundé. Présentation orale : l'administration de masse de praziquantel réduit la susceptibilité à Schistosoma mansoni en zone d'endémie."
+};
+
+const EXP = [
+  { en: { when: "08/2024 - Present", t: "Data Manager and EPI Focal Point (support staff)", k: "Public health", w: "Lomié Health District, East Regional Delegation, Ministry of Public Health, Cameroon",
+      b: ["Compile and follow up the district's routine health data, including the monthly activity reports of its 19 health facilities entered in DHIS2.",
+          "Act as district focal point for the Expanded Programme on Immunization and follow immunization indicators on the national review dashboard.",
+          "Compiled the district supervision report of the 2026 community-directed treatment with ivermectin against onchocerciasis in four health areas, recomputing and flagging the health-area figures that contained errors."] },
+    fr: { when: "08/2024 - aujourd'hui", t: "Gestionnaire de données et point focal PEV (personnel d'appui)", k: "Santé publique", w: "District de Santé de Lomié, Délégation Régionale de l'Est, Ministère de la Santé Publique, Cameroun",
+      b: ["Je compile et je suis les données sanitaires de routine du district, dont les rapports mensuels d'activité de ses 19 formations sanitaires saisis dans DHIS2.",
+          "Je suis le point focal du district pour le Programme Élargi de Vaccination et je suis les indicateurs de vaccination sur le tableau de bord national de revue.",
+          "J'ai compilé le rapport de supervision du district pour le traitement à l'ivermectine sous directives communautaires contre l'onchocercose en 2026 dans quatre aires de santé, en recalculant et en signalant les chiffres d'aire de santé qui contenaient des erreurs."] } },
+  { en: { when: "2023 - Present", t: "Graduate Research Assistant", k: "Research", w: "Laboratory of Pharmacology and Toxicology, University of Yaoundé 1, Cameroon",
+      b: ["Assisted a master's project on Mucuna pruriens in an aluminium chloride model of neurotoxicity.",
+          "Support experimental work, data analysis and manuscript writing in departmental projects, and mentor undergraduate biochemistry students."] },
+    fr: { when: "2023 - aujourd'hui", t: "Assistant de recherche", k: "Recherche", w: "Laboratoire de Pharmacologie et Toxicologie, Université de Yaoundé 1, Cameroun",
+      b: ["J'ai assisté un projet de Master sur Mucuna pruriens dans un modèle de neurotoxicité au chlorure d'aluminium.",
+          "J'appuie le travail expérimental, l'analyse des données et la rédaction de manuscrits dans les projets du département, et j'encadre des étudiants de Licence en biochimie."] } },
+  { en: { when: "2023 - 2024", t: "Master's thesis research", k: "Research", w: "University of Yaoundé 1 and IBHI Laboratory, IMPM/MINRESI, Cameroon",
+      b: ["Designed and carried out field and laboratory work on schistosomiasis in school-aged children, covering parasitology, immunology and molecular biology.",
+          "Measured plasma antibodies and cytokines by ELISA, then analysed and visualised the data in R, Python, SPSS and GraphPad Prism."] },
+    fr: { when: "2023 - 2024", t: "Recherche de mémoire de Master", k: "Recherche", w: "Université de Yaoundé 1 et Laboratoire IBHI, IMPM/MINRESI, Cameroun",
+      b: ["J'ai conçu et réalisé le travail de terrain et de laboratoire sur la schistosomiase chez des enfants d'âge scolaire, en parasitologie, en immunologie et en biologie moléculaire.",
+          "J'ai dosé les anticorps et les cytokines plasmatiques par ELISA, puis analysé et représenté les données avec R, Python, SPSS et GraphPad Prism."] } },
+  { en: { when: "2023 - 2024", t: "Field Data Collector", k: "Research", w: "IBHI Laboratory, IMPM/MINRESI, Cameroon",
+      b: ["Identified and collected freshwater snails for parasitological surveys, and collected, processed and documented stool and blood samples from school-aged children.",
+          "Followed standardised protocols for sample handling so that specimens and records kept their quality."] },
+    fr: { when: "2023 - 2024", t: "Collecteur de données de terrain", k: "Recherche", w: "Laboratoire IBHI, IMPM/MINRESI, Cameroun",
+      b: ["J'ai identifié et collecté des mollusques d'eau douce pour les enquêtes parasitologiques, et j'ai collecté, traité et documenté des échantillons de selles et de sang d'enfants d'âge scolaire.",
+          "J'ai suivi des protocoles standardisés de manipulation des échantillons pour que les prélèvements et les registres gardent leur qualité."] } },
+  { en: { when: "2026", t: "Independent computational work", k: "Research", w: "Antischistosomal compound prioritisation",
+      b: ["Built and ran a screening cascade on 85 published antischistosomal compounds using three open-source models from the Ersilia Model Hub, submitted through the Ersilia self-service platform.",
+          "Read each model's training report and applicability domain before use, and reported a domain verdict alongside every prediction.",
+          "Recovered the two compounds with confirmed in vitro activity at ranks four and ten of 85 on predicted activity."] },
+    fr: { when: "2026", t: "Travail computationnel indépendant", k: "Recherche", w: "Priorisation de composés antischistosomiens",
+      b: ["J'ai construit et exécuté une cascade de criblage sur 85 composés antischistosomiens publiés, avec trois modèles libres de l'Ersilia Model Hub, soumis par la plateforme en libre-service d'Ersilia.",
+          "J'ai lu le rapport d'entraînement et le domaine d'applicabilité de chaque modèle avant de l'utiliser, et j'ai donné un verdict de domaine avec chaque prédiction.",
+          "Les deux composés à activité in vitro confirmée sont ressortis aux rangs quatre et dix sur 85 pour l'activité prédite."] } },
+  { en: { when: "2024 - Present", t: "Founder", k: "Data analysis", w: "Data Vision Analytics, Cameroon",
+      b: ["Analyse and interpret data for clients and research projects, mainly in health and education."] },
+    fr: { when: "2024 - aujourd'hui", t: "Fondateur", k: "Analyse de données", w: "Data Vision Analytics, Cameroun",
+      b: ["J'analyse et j'interprète des données pour des clients et des projets de recherche, surtout en santé et en éducation."] } },
+  { en: { when: "2021 - Present", t: "Tutor and part-time science teacher", k: "Education", w: "Educational institutions and private tutoring, Cameroon",
+      b: ["Give tutorials and practical sessions to undergraduate biochemistry students and science classes in secondary schools."] },
+    fr: { when: "2021 - aujourd'hui", t: "Répétiteur et enseignant de sciences à temps partiel", k: "Enseignement", w: "Établissements scolaires et cours particuliers, Cameroun",
+      b: ["Je donne des travaux dirigés et des séances pratiques à des étudiants de Licence en biochimie et à des classes de sciences du secondaire."] } }
+];
+
+const SKILLS = {
+  en: [["Laboratory", "ELISA and immunoassays, rapid diagnostic tests, PCR, qPCR and RT-PCR, Western blotting, cell culture, chromatography and spectroscopy, biomolecule separation."],
+       ["Digital skills", "R, Python, Bash, Git and GitHub, SPSS, GraphPad Prism, DHIS2, Power BI, IASO, RDKit, Ersilia Model Hub, NCBI tools, Zotero, LaTeX, Microsoft Office."],
+       ["Analytical skills", "Molecular descriptors and fingerprints and QSAR modelling (working knowledge); familiar with molecular docking and virtual screening. Sequence alignment and ORF analysis. Data quality checks at district level."],
+       ["Communication", "Presented my master's results orally at the 1st Schistosomiasis Awareness Day (IMPM/MINRESI, Yaoundé, 2023). Wrote the first draft of a multi-author paper and handled the revisions with nine co-authors. Explained the study to families and school staff during field work."],
+       ["Organisation", "Ran the sampling logistics of a school-based field study from recruitment to processing. Keep the reporting of 19 health facilities on schedule each month, and founded a small data-analysis practice."]],
+  fr: [["Laboratoire", "ELISA et immunodosages, tests de diagnostic rapide, PCR, qPCR et RT-PCR, Western blot, culture cellulaire, chromatographie et spectroscopie, séparation de biomolécules."],
+       ["Outils numériques", "R, Python, Bash, Git et GitHub, SPSS, GraphPad Prism, DHIS2, Power BI, IASO, RDKit, Ersilia Model Hub, outils du NCBI, Zotero, LaTeX, Microsoft Office."],
+       ["Analyse", "Descripteurs et empreintes moléculaires, modélisation QSAR (connaissances pratiques) ; notions de docking moléculaire et de criblage virtuel. Alignement de séquences et analyse d'ORF. Contrôles de qualité des données au niveau du district."],
+       ["Communication", "J'ai présenté oralement les résultats de mon Master à la 1re Journée de sensibilisation à la schistosomiase (IMPM/MINRESI, Yaoundé, 2023). J'ai rédigé la première version d'un article à plusieurs auteurs et conduit les révisions avec neuf co-auteurs. J'ai expliqué l'étude aux familles et au personnel des écoles pendant le terrain."],
+       ["Organisation", "J'ai conduit la logistique des prélèvements d'une étude de terrain en milieu scolaire, du recrutement au traitement. Je tiens chaque mois le calendrier de rapportage de 19 formations sanitaires, et j'ai fondé une petite activité d'analyse de données."]]
+};
+
+/* date : AAAA-MM-JJ, ou AAAA quand le jour n'est pas connu. imgs vide = certificat a ajouter. */
+const CERTS = [
+  { date: "2026-11-11", cat: "lab", org: "Proteintech Group", title: "ELISA Workshop", imgs: ["proteintech-elisa-2026.jpg"] },
+  { date: "2026-11-11", cat: "dd", org: "Labroots", title: "Realizing the promise of AI-enabled drug discovery - preparing the next steps", imgs: ["labroots-ai-drug-discovery-2026.jpg"] },
+  { date: "2026-11-10", cat: "lab", org: "Proteintech Group", title: "Western Blot Workshop", imgs: ["proteintech-western-blot-2026.jpg"] },
+  { date: "2026-11-09", cat: "lab", org: "Proteintech Group", title: "Antibody Validation Workshop", imgs: ["proteintech-antibody-validation-2026.jpg"] },
+  { date: "2026-11-05", cat: "dd", org: "EU-OPENSCREEN ERIC", title: "EU-OPENSCREEN Autumn Training School 2026",
+    en: "Virtual event, 3 to 5 November 2026, 16 talks on chemical biology and drug discovery.", fr: "Événement en ligne, du 3 au 5 novembre 2026, 16 exposés sur la biologie chimique et la découverte de médicaments.", imgs: ["eu-openscreen-autumn-school-2026.jpg"] },
+  { date: "2026-11-05", cat: "lab", org: "Labroots", title: "xMAP Connect 2026 Virtual Series", imgs: ["labroots-xmap-2026.jpg"] },
+  { date: "2026-11-03", cat: "dd", org: "Labroots", title: "Mass Spectrometry Across the Drug Discovery Funnel: From Structure and Function to In Vivo Insights", imgs: ["labroots-mass-spec-2026.jpg"] },
+  { date: "2026-11-01", cat: "data", org: "Kaggle Learn", title: "Intro to Programming", imgs: ["kaggle-intro-programming-2026.jpg"] },
+  { date: "2026", cat: "dd", org: "AI4Life Innovation Talk #9", title: "GNINA: Deep Learning for Molecular Docking and Virtual Screening", imgs: [] },
+  { date: "2026", cat: "data", org: "Kaggle Learn", title: "Python", imgs: [] },
+  { date: "2026", cat: "data", org: "Kaggle Learn", title: "Intro to Machine Learning", imgs: [] },
+  { date: "2025", cat: "dd", org: "AI2050 AI/ML Foundation", title: "AI/ML Tools for Drug Discovery", imgs: [] },
+  { date: "2024-08-15", cat: "lab", org: "Proteintech Group", title: "IHC/IF Workshop", imgs: ["comp-01.jpg"] },
+  { date: "2023-07-26", cat: "event", org: "IMPM, with the Wellcome Centre for Integrative Parasitology", title: "1st Schistosomiasis Day: Schistosomiasis Awareness and Scientific Networking",
+    en: "Certificate of participation, Yaoundé.", fr: "Certificat de participation, Yaoundé.", imgs: ["comp-03.jpg"] },
+  { date: "2023-07-14", cat: "data", org: "Evidence for Research and IBHI unit, IMPM", title: "Module STAT 101: Introduction to Biostatistics with R",
+    en: "Descriptive and inferential statistics, introduction to linear and logistic regression with R and RStudio.", fr: "Statistique descriptive et inférentielle, introduction à la régression linéaire et logistique avec R et RStudio.", imgs: ["comp-02.jpg"] },
+  { date: "2023-02-09", cat: "clin", org: "Global Health Training Centre", title: "Good Clinical Laboratory Practice (GCLP), six modules",
+    en: "Scores: Organisation and Personnel 95%, Facilities, Equipment, Materials and Reagents 95%, Standard Operating Procedures and Analytical Plan 90%, Quality Management 92%, Method and Systems Validation 80%, Sample Management, Conduct of the Work, Data Recording and Data Reporting 90%.",
+    fr: "Scores : Organisation and Personnel 95 %, Facilities, Equipment, Materials and Reagents 95 %, Standard Operating Procedures and Analytical Plan 90 %, Quality Management 92 %, Method and Systems Validation 80 %, Sample Management, Conduct of the Work, Data Recording and Data Reporting 90 %.",
+    imgs: ["comp-10.jpg", "comp-08.jpg", "comp-07.jpg", "comp-11.jpg", "comp-09.jpg", "comp-12.jpg"] },
+  { date: "2023-01-25", cat: "clin", org: "Global Health Training Centre", title: "Introduction to Clinical Research",
+    en: "Score: 100%.", fr: "Score : 100 %.", imgs: ["comp-06.jpg"] },
+  { date: "2022", cat: "lab", org: "J&A Oben Foundation", title: "Internship in biochemical analysis techniques",
+    en: "Internship attestation.", fr: "Attestation de stage.", imgs: ["comp-04.jpg"] },
+  { date: "2022", cat: "clin", org: "CITI Program", title: "Ethics in Research", imgs: [] },
+  { date: "2021-05-07", cat: "event", org: "L'Éveil du Génie, AEFAS and EACS, University of Yaoundé 1", title: "Training seminar on the manufacture of cosmetic and food products",
+    en: "Certificate of participation.", fr: "Certificat de participation.", imgs: ["comp-05.jpg"] }
+];
+
+const REFS = [
+  { name: "Dr Brice Owona Ayissi",
+    en: { role: "Thesis supervisor", d: "Senior Lecturer in Biochemistry, University of Yaoundé 1, and Research Scientist, Medical University of South Carolina (MUSC)." },
+    fr: { role: "Directeur de mémoire", d: "Chargé de cours en biochimie, Université de Yaoundé 1, et chercheur à la Medical University of South Carolina (MUSC)." } },
+  { name: "Prof. Frédéric Nico Njayou",
+    en: { role: "Head of department", d: "Full Professor and Head of the Department of Biochemistry, University of Yaoundé 1." },
+    fr: { role: "Chef de département", d: "Professeur titulaire et chef du Département de Biochimie, Université de Yaoundé 1." } }
+];
