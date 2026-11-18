@@ -219,6 +219,9 @@ const SKILLS = {
 
 /* date : AAAA-MM-JJ, ou AAAA quand le jour n'est pas connu. imgs vide = certificat a ajouter. */
 const CERTS = [
+  { date: "2026-11-17", cat: "lab", org: "Labroots", title: "Automating Antibody Panels and Staining Protocols for High-Parameter Flow Cytometry", imgs: ["labroots-flow-cytometry-2026.jpg"] },
+  { date: "2026-11-13", cat: "lab", org: "Proteintech Group", title: "Flow Cytometry Workshop", imgs: ["proteintech-flow-cytometry-2026.jpg"] },
+  { date: "2026-11-12", cat: "lab", org: "Proteintech Group", title: "Immunofluorescence Workshop", imgs: ["proteintech-immunofluorescence-2026.jpg"] },
   { date: "2026-11-11", cat: "lab", org: "Proteintech Group", title: "ELISA Workshop", imgs: ["proteintech-elisa-2026.jpg"] },
   { date: "2026-11-11", cat: "dd", org: "Labroots", title: "Realizing the promise of AI-enabled drug discovery - preparing the next steps", imgs: ["labroots-ai-drug-discovery-2026.jpg"] },
   { date: "2026-11-10", cat: "lab", org: "Proteintech Group", title: "Western Blot Workshop", imgs: ["proteintech-western-blot-2026.jpg"] },
@@ -228,7 +231,7 @@ const CERTS = [
   { date: "2026-11-05", cat: "lab", org: "Labroots", title: "xMAP Connect 2026 Virtual Series", imgs: ["labroots-xmap-2026.jpg"] },
   { date: "2026-11-03", cat: "dd", org: "Labroots", title: "Mass Spectrometry Across the Drug Discovery Funnel: From Structure and Function to In Vivo Insights", imgs: ["labroots-mass-spec-2026.jpg"] },
   { date: "2026-11-01", cat: "data", org: "Kaggle Learn", title: "Intro to Programming", imgs: ["kaggle-intro-programming-2026.jpg"] },
-  { date: "2026", cat: "dd", org: "AI4Life Innovation Talk #9", title: "GNINA: Deep Learning for Molecular Docking and Virtual Screening", imgs: [] },
+  { date: "2026", cat: "dd", org: "AI4Life Innovation Talk #9", title: "GNINA: Deep Learning for Molecular Docking and Virtual Screening", imgs: ["ai4life-gnina-2026.jpg"] },
   { date: "2026", cat: "data", org: "Kaggle Learn", title: "Python", imgs: [] },
   { date: "2026", cat: "data", org: "Kaggle Learn", title: "Intro to Machine Learning", imgs: [] },
   { date: "2025", cat: "dd", org: "AI2050 AI/ML Foundation", title: "AI/ML Tools for Drug Discovery", imgs: [] },
